@@ -1,37 +1,31 @@
 package com.marketspace.domain.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Pessoa implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int Id;
-	private String Nome;
-	private String Email;
+	private String RazaoSocial;
+	private String NomeFantasia;
+	private String Documento;
+	private Date DataCadastro;
+	private Date DataAtualizacao;
 	
-	public Pessoa() {
-	}
-
-	public Pessoa(int id, String nome, String email) {
-		super();
-		Id = id;
-		Nome = nome;
-		Email = email;
-	}
-	public Pessoa(String nome, String email) {
-		super();
-		Nome = nome;
-		Email = email;
-	}
-
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private TipoPessoa TipoPessoa;
 
 	public int getId() {
 		return Id;
@@ -41,26 +35,71 @@ public class Pessoa implements Serializable {
 		Id = id;
 	}
 
-	public String getNome() {
-		return Nome;
+	public String getRazaoSocial() {
+		return RazaoSocial;
 	}
 
-	public void setNome(String nome) {
-		Nome = nome;
+	public void setRazaoSocial(String razaoSocial) {
+		RazaoSocial = razaoSocial;
 	}
 
-	public String getEmail() {
-		return Email;
+	public String getNomeFantasia() {
+		return NomeFantasia;
 	}
 
-	public void setEmail(String email) {
-		Email = email;
+	public void setNomeFantasia(String nomeFantasia) {
+		NomeFantasia = nomeFantasia;
+	}
+
+	public String getDocumento() {
+		return Documento;
+	}
+
+	public void setDocumento(String documento) {
+		Documento = documento;
+	}
+
+	public Date getDataCadastro() {
+		return DataCadastro;
+	}
+
+	public void setDataCadastro(Date dataCadastro) {
+		DataCadastro = dataCadastro;
+	}
+
+	public Date getDataAtualizacao() {
+		return DataAtualizacao;
+	}
+
+	public void setDataAtualizacao(Date dataAtualizacao) {
+		DataAtualizacao = dataAtualizacao;
+	}
+
+	public TipoPessoa getTipoPessoa() {
+		return TipoPessoa;
+	}
+
+	public void setTipoPessoa(TipoPessoa tipoPessoa) {
+		TipoPessoa = tipoPessoa;
+	}
+
+	public Pessoa() {}
+	public Pessoa(String razaoSocial, String nomeFantasia, String documento, Date dataCadastro, Date dataAtualizacao,
+			TipoPessoa tipoPessoa) {
+		super();
+		RazaoSocial = razaoSocial;
+		NomeFantasia = nomeFantasia;
+		Documento = documento;
+		DataCadastro = dataCadastro;
+		DataAtualizacao = dataAtualizacao;
+		TipoPessoa = tipoPessoa;
 	}
 
 	@Override
 	public String toString() {
-		return "Pessoa [Id=" + Id + ", Nome=" + Nome + ", Email=" + Email + "]";
+		return "Pessoa [Id=" + Id + ", RazaoSocial=" + RazaoSocial + ", NomeFantasia=" + NomeFantasia + ", Documento="
+				+ Documento + ", DataCadastro=" + DataCadastro + ", DataAtualizacao=" + DataAtualizacao
+				+ ", TipoPessoa=" + TipoPessoa + "]";
 	}
-	
-	
+
 }

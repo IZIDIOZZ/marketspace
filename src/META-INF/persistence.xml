@@ -6,6 +6,9 @@
 	version="2.1">
 
 	<persistence-unit name="contexto" transaction-type="RESOURCE_LOCAL">
+	<class>com.marketspace.domain.entities.Usuario</class>
+	<class>com.marketspace.domain.entities.Pessoa</class>
+	<class>com.marketspace.domain.entities.TipoPessoa</class>
 	<properties>
         <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
     	<property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://DESKTOP-MMPAU0G\\SQLEXPRESS:1433;database=marketSpace;integratedSecurity=true"/>
@@ -17,6 +20,7 @@
 	   	<property name="hibernate.hbm2ddl.auto" value="update" />
 	    <property name="hibernate.show_sql" value="true"/>
 	    <property name="hibernate.format_sql" value="true"/>
+	    
 	</properties>
 	</persistence-unit>
 </persistence>

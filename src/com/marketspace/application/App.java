@@ -11,7 +11,7 @@ public class App  extends Application {
 	  public void start(Stage primaryStage) throws Exception{
 	    	
 	        //Carrega a view inicial do Menu num Node Pai e define as configurações de tamanho, titulo e icone.
-	    	FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/com/marketspace/application/views/TesteView.fxml"));
+	    	FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/com/marketspace/application/views/LoginView.fxml"));
 	    	Parent root = loader.load();
 	    	primaryStage.setTitle("MarketSpace");
 	        primaryStage.setScene(new Scene(root, 1028, 682));
