@@ -22,7 +22,7 @@ public class Usuario implements Serializable {
 	private Date DataCadastro;
 	private Date DataAtualizacao;
 	
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private Pessoa Pessoa;
 
 	public int getId() {

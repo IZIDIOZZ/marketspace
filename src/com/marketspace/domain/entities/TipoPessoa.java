@@ -41,7 +41,4 @@ public class TipoPessoa implements Serializable {
 	public String toString() {
 		return "TipoPessoa [Id=" + Id + ", TipoPessoa=" + TipoPessoa + "]";
 	}
-	
-	
-	
 }

@@ -1,19 +1,27 @@
 package com.marketspace.application.controllers;
 
+import java.io.IOException;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
+
 import com.marketspace.application.helpers.DialogMessage;
+import com.marketspace.application.helpers.Navigation;
 import com.marketspace.application.services.AuthService;
+import com.marketspace.data.configurations.DbContextProvider;
 import com.marketspace.domain.entities.Usuario;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class LoginController {
-
+	
 	@FXML
 	private TextField txtUsuario;
 
@@ -38,14 +46,14 @@ public class LoginController {
 	public void initialize() throws Exception {
 		
 	}
+	
 	@FXML
-	public void LogarEvent(ActionEvent event) {
-		Usuario usuario = _authService.Logar(txtUsuario.getText(), txtSenha.getText());
-		DialogMessage dialog = new DialogMessage();
+	public void LogarEvent(ActionEvent event) throws IOException {
 		
+		Usuario usuario = _authService.Logar("daniel.teste","123");
 		if (usuario.getLogin() != null) {
-			new DialogMessage("Login Realizado com Sucesso", "Sucesso","MarketSpace", AlertType.INFORMATION).Show();
+			new Navigation().NavigateTo(event, "/com/marketspace/application/views/CadastroPessoaView.fxml"); 
 		} else
-			new DialogMessage("Login Realizado com Sucesso", "Sucesso","MarketSpace", AlertType.INFORMATION).Show();
+		  new DialogMessage("Usuário ou Senha estão incorretos", "Tente Novamente","MarketSpace", AlertType.WARNING).Show();
 	}
 }

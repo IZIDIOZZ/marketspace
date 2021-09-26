@@ -6,8 +6,11 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
 
 import com.marketspace.data.configurations.DbContextProvider;
+import com.marketspace.domain.entities.Pessoa;
 import com.marketspace.domain.entities.Usuario;
 
 public class AuthRepository {
@@ -20,12 +23,12 @@ public class AuthRepository {
 	public Usuario BuscarUsuario(String login, String senha){
 		Usuario usuario = new Usuario();
 		try {
-			final CriteriaBuilder cb = new DbContextProvider().getEntityManagerFactory().getCriteriaBuilder();
+			
+			CriteriaBuilder cb = new DbContextProvider().getEntityManagerFactory().getCriteriaBuilder();
 			Predicate[] condicoes = new Predicate[2];
 			
 			CriteriaQuery<Usuario> ctr = cb.createQuery(Usuario.class);
 			Root<Usuario> root = ctr.from(Usuario.class);
-			
 			condicoes[0] = cb.equal(root.get("Login"), login);
 			condicoes[1] = cb.equal(root.get("Senha"), senha);
 			ctr.select(root).where(condicoes);

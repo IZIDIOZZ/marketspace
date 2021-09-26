@@ -1,0 +1,50 @@
+.input-field {
+    -fx-background-color: #0F62AD;
+    -fx-text-fill: white;
+}
+
+.button{
+	-fx-background-color: #0F62AD;
+    -fx-border-radius: 20px;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+.button:hover{
+	-fx-background-color: #0A4173;
+    -fx-color: white;
+}
+
+.label{
+	-fx-text-fill: #24424F;
+	-fx-font-weight: 400;
+	-fx-border-width: 0px;
+}
+
+.button-top-menu{
+	-fx-animated: true ;
+	-fx-background-color: #D3D3D3;
+    -fx-border-radius: 20px;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+.button-top-menu:hover{
+	-fx-background-color: #B5B5B5;
+}
+
+.button-top-menu:hover:pressed {
+	-fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-scale-z: 1.05;
+}
+
+.label-top-menu{
+	-fx-text-fill: #D3D3D3;
+	-fx-font-weight: 400;
+	-fx-border-width: 0px;
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+}
+
+

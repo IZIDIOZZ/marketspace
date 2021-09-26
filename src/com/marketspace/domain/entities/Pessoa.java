@@ -2,6 +2,7 @@ package com.marketspace.domain.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Pessoa implements Serializable {
@@ -24,8 +27,22 @@ public class Pessoa implements Serializable {
 	private Date DataCadastro;
 	private Date DataAtualizacao;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Usuario Usuario;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private TipoPessoa TipoPessoa;
+	
+	@OneToMany(mappedBy="Pessoa",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<Endereco> Enderecos;
+	
+	public List<Endereco> getEnderecos() {
+		return Enderecos;
+	}
+
+	public void setEnderecos(List<Endereco> enderecos) {
+		Enderecos = enderecos;
+	}
 
 	public int getId() {
 		return Id;
@@ -82,24 +99,39 @@ public class Pessoa implements Serializable {
 	public void setTipoPessoa(TipoPessoa tipoPessoa) {
 		TipoPessoa = tipoPessoa;
 	}
+	
+	public Usuario getUsuario() {
+		return Usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		Usuario = usuario;
+	}
 
 	public Pessoa() {}
-	public Pessoa(String razaoSocial, String nomeFantasia, String documento, Date dataCadastro, Date dataAtualizacao,
-			TipoPessoa tipoPessoa) {
+
+	public Pessoa(String razaoSocial, String nomeFantasia, String documento, Date dataCadastro,
+			Date dataAtualizacao, Usuario usuario,
+			TipoPessoa tipoPessoa, List<Endereco> enderecos) {
 		super();
 		RazaoSocial = razaoSocial;
 		NomeFantasia = nomeFantasia;
 		Documento = documento;
 		DataCadastro = dataCadastro;
 		DataAtualizacao = dataAtualizacao;
+		Usuario = usuario;
 		TipoPessoa = tipoPessoa;
+		Enderecos = enderecos;
 	}
 
 	@Override
 	public String toString() {
+		Enderecos.forEach(x->System.out.println(x.toString())); 
 		return "Pessoa [Id=" + Id + ", RazaoSocial=" + RazaoSocial + ", NomeFantasia=" + NomeFantasia + ", Documento="
-				+ Documento + ", DataCadastro=" + DataCadastro + ", DataAtualizacao=" + DataAtualizacao
-				+ ", TipoPessoa=" + TipoPessoa + "]";
+				+ Documento + ", DataCadastro=" + DataCadastro + ", DataAtualizacao=" + DataAtualizacao + ", Usuario="
+				+ Usuario + ", TipoPessoa=" + TipoPessoa + ", Enderecos=" + "]";
+		
+		
 	}
 
 }

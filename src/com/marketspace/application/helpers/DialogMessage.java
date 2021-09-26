@@ -3,6 +3,8 @@ package com.marketspace.application.helpers;
 import java.util.List;
 import java.util.Optional;
 
+import com.marketspace.domain.enums.ImageEnum;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -58,7 +60,7 @@ public class DialogMessage {
 	
 	private void SetDialogIcon(Alert dialog) {
 		Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-			  stage.getIcons().add(new Image(this.getClass().getResource("/resources/img/icon.jpg").toString()));
+			  stage.getIcons().add(new Image(this.getClass().getResource(ImageEnum.icon_logo_app.getImage()).toString()));
 	}
 	
 }	

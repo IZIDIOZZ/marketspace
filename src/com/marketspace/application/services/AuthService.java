@@ -12,8 +12,7 @@ public class AuthService {
 	
 	public Usuario Logar(String login, String senha){
 		
-		Usuario usuario = _authRepository.BuscarUsuario(login, senha);
-		
+		Usuario usuario = _authRepository.BuscarUsuario(login, senha);		
 		return usuario;
 	}
 }

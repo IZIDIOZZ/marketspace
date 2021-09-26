@@ -8,42 +8,47 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="615.0" prefWidth="769.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.marketspace.application.controllers.LoginController">
+<AnchorPane prefHeight="615.0" prefWidth="769.0" stylesheets="@styles/mainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.marketspace.application.controllers.LoginController">
    <children>
-      <VBox alignment="CENTER" fillWidth="false" layoutX="163.0" layoutY="1.0" maxWidth="400.0" prefHeight="404.0" prefWidth="180.0" spacing="10.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="163.0" AnchorPane.rightAnchor="163.0" AnchorPane.topAnchor="1.0">
+      <VBox alignment="CENTER" fillWidth="false" layoutX="163.0" layoutY="1.0" maxWidth="400.0" prefHeight="404.0" prefWidth="180.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="163.0" AnchorPane.rightAnchor="163.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fitHeight="200.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../resources/img/logo-app.png" />
                </image></ImageView>
-            <Label nodeOrientation="LEFT_TO_RIGHT" prefHeight="28.0" prefWidth="188.0" text="Usuario">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <TextField fx:id="txtUsuario" promptText="Insira seu usuário..." style="-fx-background-color: #0F62AD; -fx-text-fill: white;">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </TextField>
-            <Label nodeOrientation="LEFT_TO_RIGHT" prefHeight="28.0" prefWidth="188.0" text="Senha">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <PasswordField fx:id="txtSenha" promptText="Insira sua senha..." style="-fx-background-color: #0F62AD; -fx-text-fill: white;">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </PasswordField>
-            <Button fx:id="btnLogar" mnemonicParsing="false" onAction="#LogarEvent" prefHeight="31.0" prefWidth="187.0" text="Logar">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
+            <Pane prefHeight="182.0" prefWidth="274.0">
+               <children>
+                  <Label layoutX="6.0" layoutY="6.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="21.0" prefWidth="188.0" text="Usuario">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtUsuario" layoutX="6.0" layoutY="27.0" prefHeight="31.0" prefWidth="258.0" promptText="Insira seu usuário..." styleClass="input-field">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="6.0" layoutY="65.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="11.0" prefWidth="188.0" text="Senha">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="txtSenha" layoutX="6.0" layoutY="86.0" prefHeight="31.0" prefWidth="258.0" promptText="Insira sua senha..." style="-fx-margin: 0 20 20 0;" styleClass="input-field">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </PasswordField>
+                  <Button fx:id="btnLogar" layoutX="6.0" layoutY="140.0" mnemonicParsing="false" onAction="#LogarEvent" prefHeight="31.0" prefWidth="258.0" text="Logar">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
