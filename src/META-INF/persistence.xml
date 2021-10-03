@@ -11,7 +11,7 @@
 	<class>com.marketspace.domain.entities.TipoPessoa</class>
 	<properties>
         <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
-    	<property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://DESKTOP-MMPAU0G\\SQLEXPRESS:1433;database=marketSpace;integratedSecurity=true"/>
+    	<property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://DESKTOP-MMPAU0G\\SQLEXPRESS:1433;database=MarketSpace;integratedSecurity=true"/>
 		<property name="javax.persistence.jdbc.user" value="DESKTOP-MMPAU0G\danie" />
 		<property name="javax.persistence.jdbc.password" value="" /> 
 

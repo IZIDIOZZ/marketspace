@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.marketspace.domain.enums.ImageEnum;
+import com.marketspace.domain.enums.MarketSpaceEnum;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -17,14 +18,13 @@ public class DialogMessage {
 	private String titulo;
 	private String tituloMensagem;
 	private Alert dialog;
-	
 	public DialogMessage() {}
 	
-	public DialogMessage(String mensagem, String titulo, String tituloMensagem, AlertType tipoDoAlerta) {
+	public DialogMessage(String mensagem, String titulo, AlertType tipoDoAlerta) {
 		super();
 		this.mensagem = mensagem;
 		this.titulo = titulo;
-		this.tituloMensagem = tituloMensagem;
+		this.tituloMensagem = MarketSpaceEnum.nome.getNome();
 		this.dialog = new Alert(tipoDoAlerta);
 	}
 	
@@ -32,21 +32,21 @@ public class DialogMessage {
 		return ConfigureDialogVisualization();
 	}
 	
-	public Optional<ButtonType> Show(String mensagem, String titulo, String tituloMensagem, AlertType tipoDoAlerta ){
+	public Optional<ButtonType> Show(String mensagem, String titulo,AlertType tipoDoAlerta ){
 		
-		return ConfigureDialogVisualization(dialog,mensagem,titulo,tituloMensagem);
+		return ConfigureDialogVisualization(dialog,mensagem,titulo);
 	}
 
-	public Optional<ButtonType> Show(String mensagem, String titulo,String tituloMensagem, AlertType tipoDoAlerta, List<ButtonType> buttons){
+	public Optional<ButtonType> Show(String mensagem, String titulo, AlertType tipoDoAlerta, List<ButtonType> buttons){
 		
 		if (buttons != null) dialog.getButtonTypes().setAll(buttons);
-		return ConfigureDialogVisualization(dialog,mensagem,titulo,tituloMensagem);
+		return ConfigureDialogVisualization(dialog,mensagem,titulo);
 	}
 	
-	private static Optional<ButtonType> ConfigureDialogVisualization(Alert dialog,String mensagem, String titulo, String tituloMensagem) {
+	private static Optional<ButtonType> ConfigureDialogVisualization(Alert dialog,String mensagem, String titulo) {
 		dialog.setContentText(mensagem);
 		dialog.setHeaderText(titulo);
-		dialog.setTitle(tituloMensagem);
+		dialog.setTitle(MarketSpaceEnum.nome.getNome());
 		return dialog.showAndWait();
 	}
 	

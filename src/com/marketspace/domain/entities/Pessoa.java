@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.marketspace.domain.interfaces.IEntity;
 
 @Entity
 public class Pessoa implements Serializable {
@@ -23,19 +26,22 @@ public class Pessoa implements Serializable {
 	private int Id;
 	private String RazaoSocial;
 	private String NomeFantasia;
+
+	@Column(unique = true)
 	private String Documento;
+
 	private Date DataCadastro;
 	private Date DataAtualizacao;
-	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+	@OneToOne(mappedBy = "Pessoa", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Usuario Usuario;
-	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+	@ManyToOne(fetch = FetchType.EAGER)
 	private TipoPessoa TipoPessoa;
-	
-	@OneToMany(mappedBy="Pessoa",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+	@OneToMany(mappedBy = "Pessoa", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Endereco> Enderecos;
-	
+
 	public List<Endereco> getEnderecos() {
 		return Enderecos;
 	}
@@ -99,7 +105,7 @@ public class Pessoa implements Serializable {
 	public void setTipoPessoa(TipoPessoa tipoPessoa) {
 		TipoPessoa = tipoPessoa;
 	}
-	
+
 	public Usuario getUsuario() {
 		return Usuario;
 	}
@@ -108,11 +114,11 @@ public class Pessoa implements Serializable {
 		Usuario = usuario;
 	}
 
-	public Pessoa() {}
+	public Pessoa() {
+	}
 
-	public Pessoa(String razaoSocial, String nomeFantasia, String documento, Date dataCadastro,
-			Date dataAtualizacao, Usuario usuario,
-			TipoPessoa tipoPessoa, List<Endereco> enderecos) {
+	public Pessoa(String razaoSocial, String nomeFantasia, String documento, Date dataCadastro, Date dataAtualizacao,
+			Usuario usuario, TipoPessoa tipoPessoa, List<Endereco> enderecos) {
 		super();
 		RazaoSocial = razaoSocial;
 		NomeFantasia = nomeFantasia;
@@ -124,14 +130,22 @@ public class Pessoa implements Serializable {
 		Enderecos = enderecos;
 	}
 
+	public Pessoa(String razaoSocial, String nomeFantasia, String documento, Date dataCadastro, Date dataAtualizacao,
+			TipoPessoa tipoPessoa) {
+		super();
+		RazaoSocial = razaoSocial;
+		NomeFantasia = nomeFantasia;
+		Documento = documento;
+		DataCadastro = dataCadastro;
+		DataAtualizacao = dataAtualizacao;
+		TipoPessoa = tipoPessoa;
+	}
+
 	@Override
 	public String toString() {
-		Enderecos.forEach(x->System.out.println(x.toString())); 
 		return "Pessoa [Id=" + Id + ", RazaoSocial=" + RazaoSocial + ", NomeFantasia=" + NomeFantasia + ", Documento="
 				+ Documento + ", DataCadastro=" + DataCadastro + ", DataAtualizacao=" + DataAtualizacao + ", Usuario="
 				+ Usuario + ", TipoPessoa=" + TipoPessoa + ", Enderecos=" + "]";
-		
-		
 	}
 
 }

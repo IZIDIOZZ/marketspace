@@ -1,7 +1,9 @@
 package com.marketspace.domain.viewModels;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import com.marketspace.domain.entities.Endereco;
+import com.marketspace.domain.entities.Estado;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -17,9 +19,10 @@ public class EnderecoViewModel {
 	private SimpleStringProperty Numero;
 	private ObjectProperty<Date> DataCadastro;
 	private ObjectProperty<Date> DataAtualizacao;
+	private SimpleStringProperty Estado;
 
-	public SimpleIntegerProperty getId() {
-		return Id;
+	public int getId() {
+		return Id.get();
 	}
 
 	public void setId(Integer id) {
@@ -81,9 +84,19 @@ public class EnderecoViewModel {
 	public void setDataAtualizacao(Date dataAtualizacao) {
 		DataAtualizacao.set(dataAtualizacao);
 	}
+	
+	
+	public String getEstado() {
+		return Estado.get();
+	}
+
+	public void setEstado(String estado) {
+		Estado.set(estado);
+	}
+
 	public EnderecoViewModel() {}
 	public EnderecoViewModel(String cEP, String logradouro, String bairro, String cidade, String numero,
-			Date dataCadastro, Date dataAtualizacao) {
+			Date dataCadastro, Date dataAtualizacao,String estado) {
 		super();
 		CEP = new SimpleStringProperty(cEP);
 		Logradouro = new SimpleStringProperty(logradouro);
@@ -92,8 +105,23 @@ public class EnderecoViewModel {
 		Numero = new SimpleStringProperty(numero);
 		DataCadastro = new SimpleObjectProperty<Date>(dataCadastro);
 		DataAtualizacao = new SimpleObjectProperty<Date>(dataAtualizacao);
+		Estado = new SimpleStringProperty(estado);
 	}
 
+	public EnderecoViewModel(int id, String cEP, String logradouro, String bairro, String cidade, String numero,
+			Date dataCadastro, Date dataAtualizacao, String estado) {
+		super();
+		Id = new SimpleIntegerProperty(id);
+		CEP = new SimpleStringProperty(cEP);
+		Logradouro = new SimpleStringProperty(logradouro);
+		Bairro = new SimpleStringProperty(bairro);
+		Cidade = new SimpleStringProperty(cidade);
+		Numero = new SimpleStringProperty(numero);
+		DataCadastro = new SimpleObjectProperty<Date>(dataCadastro);
+		DataAtualizacao = new SimpleObjectProperty<Date>(dataAtualizacao);
+		Estado = new SimpleStringProperty(estado);
+		
+	}
 	public EnderecoViewModel(int id, String cEP, String logradouro, String bairro, String cidade, String numero,
 			Date dataCadastro, Date dataAtualizacao) {
 		super();
@@ -105,6 +133,6 @@ public class EnderecoViewModel {
 		Numero = new SimpleStringProperty(numero);
 		DataCadastro = new SimpleObjectProperty<Date>(dataCadastro);
 		DataAtualizacao = new SimpleObjectProperty<Date>(dataAtualizacao);
+		
 	}
-
 }

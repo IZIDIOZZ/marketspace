@@ -50,10 +50,10 @@ public class LoginController {
 	@FXML
 	public void LogarEvent(ActionEvent event) throws IOException {
 		
-		Usuario usuario = _authService.Logar("daniel.teste","123");
+		Usuario usuario = _authService.Logar("123","123");
 		if (usuario.getLogin() != null) {
 			new Navigation().NavigateTo(event, "/com/marketspace/application/views/CadastroPessoaView.fxml"); 
 		} else
-		  new DialogMessage("Usuário ou Senha estão incorretos", "Tente Novamente","MarketSpace", AlertType.WARNING).Show();
+		  new DialogMessage("Usuário ou Senha estão incorretos", "Tente Novamente", AlertType.WARNING).Show();
 	}
 }
