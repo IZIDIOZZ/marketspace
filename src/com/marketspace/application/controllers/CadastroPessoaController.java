@@ -8,10 +8,10 @@ import java.util.Optional;
 import com.marketspace.application.helpers.DialogMessage;
 import com.marketspace.application.services.EnderecoService;
 import com.marketspace.application.services.PessoaService;
-import com.marketspace.domain.entities.Endereco;
-import com.marketspace.domain.entities.Estado;
-import com.marketspace.domain.entities.Pessoa;
-import com.marketspace.domain.entities.TipoPessoa;
+import com.marketspace.data.mappings.Endereco;
+import com.marketspace.data.mappings.Estado;
+import com.marketspace.data.mappings.Pessoa;
+import com.marketspace.data.mappings.TipoPessoa;
 import com.marketspace.domain.enums.TipoPessoaEnum;
 import com.marketspace.domain.interfaces.IViewState;
 import com.marketspace.domain.viewModels.EnderecoViewModel;
@@ -173,7 +173,6 @@ public class CadastroPessoaController implements IViewState {
 	public void initialize() {
 		ConfiguraTabelaEndereco();
 		ConfiguraComboTipoPessoa();
-		// PesquisarPessoa();
 		ObterValoresComboTipoPessoa();
 		ObterValoresComboEstado();
 		SetDefaultView();
@@ -197,16 +196,16 @@ public class CadastroPessoaController implements IViewState {
 	@FXML
 	void CadastrarPessoaEvent(ActionEvent event) {
 		MontarPessoaComEntradasDoFormulario();
+		
 		if (_pessoaService.CadastrarPessoa(_pessoa)) {
 			new DialogMessage("Cadastro realizado com sucesso.", "Cadastro realizado com sucesso",
 					AlertType.INFORMATION).Show();
-		} else {
-			new DialogMessage("Ocorreu um erro ao cadastrar a pessoa.", "Falha ao radastrar", AlertType.WARNING).Show();
 		}
 	}
 
 	@FXML
 	void AtualizarPessoaEvent(ActionEvent event) {
+		MontarPessoaComEntradasDoFormulario();
 		SetEditView();
 		if (_pessoaService.AtualizarPessoa(_pessoa)) {
 			new DialogMessage("Pessoa Atualizada com sucesso.", "Pessoa Atualizada com sucesso", AlertType.INFORMATION)
@@ -223,10 +222,12 @@ public class CadastroPessoaController implements IViewState {
 		Optional<ButtonType> reposta =  new DialogMessage("Deseja realmente remover esta pessoa?",
 				"Ao Aceitar, você estará removendo todos os registros relacionados com essa pessoa.",
 				AlertType.CONFIRMATION).Show();
+		
 		if(reposta.get() == ButtonType.OK) {
 			if (_pessoaService.RemoverPessoa(Integer.parseInt(txtCodigoPessoa.getText()))) {
 				new DialogMessage("Pessoa removida com sucesso", "Todos os dados desta pessoa foram removidos",
 						AlertType.INFORMATION).Show();
+				LimparFormulario();
 			} else {
 				new DialogMessage("Ocorreu um erro ao remover esta pessoa.", "Não foi possível remover a pessoa",
 						AlertType.WARNING).Show();
@@ -242,15 +243,15 @@ public class CadastroPessoaController implements IViewState {
 
 	@FXML
 	void PesquisarPessoaPorIdEvent(ActionEvent event) {
-		PesquisarPessoaPorId(Integer.parseInt(txtCodigoPessoa.getText()));
 		SetSearchView();
+		PesquisarPessoaPorId(Integer.parseInt(txtCodigoPessoa.getText()));
 	}
 
 	@FXML
 	void CancelarOperacaoEvent(ActionEvent event) {
+		SetDefaultView();
 		if (!txtCodigoPessoa.getText().isEmpty())
 			PesquisarPessoaPorId(Integer.parseInt(txtCodigoPessoa.getText()));
-		SetDefaultView();
 	}
 	
 
@@ -262,8 +263,11 @@ public class CadastroPessoaController implements IViewState {
 
 	public void PesquisarPessoaPorId(int Id) {
 		_pessoa = _pessoaService.PesquisarPessoaPorId(Id);
-		PreencherFormularioPessoa(_pessoa);
-		PreencherGridEnderecos(_pessoa.getEnderecos());
+		if(_pessoa != null) {
+			PreencherFormularioPessoa(_pessoa);
+			PreencherGridEnderecos(_pessoa.getEnderecos());
+			MudancaTipoDePessoaEvent();
+		}
 	}
 
 	public void PreencherGridEnderecos(List<Endereco> enderecos) {
@@ -426,7 +430,7 @@ public class CadastroPessoaController implements IViewState {
 
 	public void LimparFormulario() {
 		List<Control> controles = new ArrayList<Control>(List.of(txtRazaoSocial, txtNomeFantasia, cmbTipoPessoa, txtCPF,
-				txtCNPJ, txtCEP, txtEndereco, txtNumero, txtBairro, txtCidade, cmbEstado, grdEndereco));
+				txtCNPJ, txtCEP, txtEndereco, txtNumero, txtBairro, txtCidade, cmbEstado, grdEndereco, txtCodigoPessoa));
 
 		LimparPessoa();
 		controles.forEach(control -> {

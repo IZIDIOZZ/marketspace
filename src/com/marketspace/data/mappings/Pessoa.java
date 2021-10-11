@@ -1,4 +1,4 @@
-package com.marketspace.domain.entities;
+package com.marketspace.data.mappings;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -45,7 +45,7 @@ public class Pessoa implements Serializable {
 	public List<Endereco> getEnderecos() {
 		return Enderecos;
 	}
-
+	
 	public void setEnderecos(List<Endereco> enderecos) {
 		Enderecos = enderecos;
 	}
@@ -113,7 +113,17 @@ public class Pessoa implements Serializable {
 	public void setUsuario(Usuario usuario) {
 		Usuario = usuario;
 	}
-
+	
+	public void AdicionarEndereco(Endereco endereco) {
+		this.Enderecos.add(endereco);
+		endereco.setPessoa(this);
+	}
+	
+	public void RemoverEndereco(Endereco endereco) {
+		this.Enderecos.remove(endereco);
+		endereco.setPessoa(null);
+	}
+	
 	public Pessoa() {
 	}
 

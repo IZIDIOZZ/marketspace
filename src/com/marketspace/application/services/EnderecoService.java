@@ -3,9 +3,9 @@ package com.marketspace.application.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.marketspace.data.mappings.Endereco;
+import com.marketspace.data.mappings.Estado;
 import com.marketspace.data.repositories.EnderecoRepository;
-import com.marketspace.domain.entities.Endereco;
-import com.marketspace.domain.entities.Estado;
 
 public class EnderecoService {
 	EnderecoRepository _enderecoRepository;

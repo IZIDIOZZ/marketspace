@@ -8,9 +8,11 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.HibernateException;
+
 import com.marketspace.data.configurations.DbContextProvider;
-import com.marketspace.domain.entities.Pessoa;
-import com.marketspace.domain.entities.TipoPessoa;
+import com.marketspace.data.mappings.Pessoa;
+import com.marketspace.data.mappings.TipoPessoa;
 
 public class PessoaRepository {
 	EntityManager _entityManager;
@@ -41,13 +43,14 @@ public class PessoaRepository {
 		return _entityManager.createQuery(ctr.select(root)).getResultList();
 	}
 
-	public void InserirPessoa(Pessoa pessoa) {
+	public boolean InserirPessoa(Pessoa pessoa) {
 		try {
 			_entityManager.getTransaction().begin();
 			_entityManager.merge(pessoa);
-
-		} catch (Exception e) {
+			return true;
+		} catch (HibernateException e) {
 			System.out.println(e.getMessage());
+			return false;
 		} finally {
 			_entityManager.getTransaction().commit();
 		}

@@ -3,9 +3,12 @@ package com.marketspace.application.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.marketspace.application.helpers.DialogMessage;
+import com.marketspace.data.mappings.Pessoa;
+import com.marketspace.data.mappings.TipoPessoa;
 import com.marketspace.data.repositories.PessoaRepository;
-import com.marketspace.domain.entities.Pessoa;
-import com.marketspace.domain.entities.TipoPessoa;
+
+import javafx.scene.control.Alert.AlertType;
 
 public class PessoaService {
 	PessoaRepository _pessoaRepository;
@@ -25,8 +28,14 @@ public class PessoaService {
 	}
 
 	public boolean CadastrarPessoa(Pessoa pessoa) {
-		_pessoaRepository.InserirPessoa(pessoa);
-		return true;
+		boolean cadastro = false;
+		if(pessoa.getEnderecos() == null) new DialogMessage("Insira no mínimo um Endereco", "Endereço requerido", AlertType.WARNING).Show(); 
+		
+		if(!_pessoaRepository.InserirPessoa(pessoa)) 
+			new DialogMessage("Ocorreu um erro ao cadastrar a pessoa.", "Falha ao cadastrar", AlertType.WARNING).Show();
+		else cadastro = true;
+		
+		return cadastro;
 	}
 
 	public boolean AtualizarPessoa(Pessoa pessoa) {
@@ -38,8 +47,7 @@ public class PessoaService {
 		_pessoaRepository.RemoverPessoa(id);
 		return true;
 	}
-
-
+	
 	public TipoPessoa RetornarTipoPessoa(String tipoPessoa) {
 		return _pessoaRepository.BuscarTipoPessoa(tipoPessoa);
 	}

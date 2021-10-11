@@ -9,8 +9,8 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import com.marketspace.data.configurations.DbContextProvider;
-import com.marketspace.domain.entities.Endereco;
-import com.marketspace.domain.entities.Estado;
+import com.marketspace.data.mappings.Endereco;
+import com.marketspace.data.mappings.Estado;
 
 public class EnderecoRepository {
 	EntityManager _entityManager;

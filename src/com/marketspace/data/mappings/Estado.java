@@ -1,4 +1,4 @@
-package com.marketspace.domain.entities;
+package com.marketspace.data.mappings;
 
 import java.io.Serializable;
 import java.util.List;

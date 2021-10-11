@@ -11,7 +11,7 @@ import com.marketspace.application.helpers.DialogMessage;
 import com.marketspace.application.helpers.Navigation;
 import com.marketspace.application.services.AuthService;
 import com.marketspace.data.configurations.DbContextProvider;
-import com.marketspace.domain.entities.Usuario;
+import com.marketspace.data.mappings.Usuario;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -50,7 +50,7 @@ public class LoginController {
 	@FXML
 	public void LogarEvent(ActionEvent event) throws IOException {
 		
-		Usuario usuario = _authService.Logar("123","123");
+		Usuario usuario = _authService.Logar("Daniel.teste","123");
 		if (usuario.getLogin() != null) {
 			new Navigation().NavigateTo(event, "/com/marketspace/application/views/CadastroPessoaView.fxml"); 
 		} else

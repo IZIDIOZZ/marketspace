@@ -1,7 +1,7 @@
 package com.marketspace.application.services;
 
+import com.marketspace.data.mappings.Usuario;
 import com.marketspace.data.repositories.AuthRepository;
-import com.marketspace.domain.entities.Usuario;
 
 public class AuthService {
 	AuthRepository _authRepository;

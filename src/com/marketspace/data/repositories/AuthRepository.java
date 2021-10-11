@@ -10,8 +10,8 @@ import javax.persistence.metamodel.EntityType;
 import javax.persistence.metamodel.Metamodel;
 
 import com.marketspace.data.configurations.DbContextProvider;
-import com.marketspace.domain.entities.Pessoa;
-import com.marketspace.domain.entities.Usuario;
+import com.marketspace.data.mappings.Pessoa;
+import com.marketspace.data.mappings.Usuario;
 
 public class AuthRepository {
 	EntityManager _dbmanager;
