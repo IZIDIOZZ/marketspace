@@ -73,7 +73,7 @@ public class Pessoa implements Serializable {
 	public void setNomeFantasia(String nomeFantasia) {
 		NomeFantasia = nomeFantasia;
 	}
-
+	
 	public String getDocumento() {
 		return Documento;
 	}
