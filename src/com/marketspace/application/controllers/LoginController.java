@@ -52,7 +52,7 @@ public class LoginController {
 		
 		Usuario usuario = _authService.Logar("Daniel.teste","123");
 		if (usuario.getLogin() != null) {
-			new Navigation().NavigateTo(event, "/com/marketspace/application/views/CadastroPessoaView.fxml"); 
+			new Navigation().NavigateTo(event, "/com/marketspace/application/views/MenuView.fxml"); 
 		} else
 		  new DialogMessage("Usuário ou Senha estão incorretos", "Tente Novamente", AlertType.WARNING).Show();
 	}

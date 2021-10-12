@@ -1,11 +1,13 @@
 package com.marketspace.application.controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import com.marketspace.application.helpers.DialogMessage;
+import com.marketspace.application.helpers.Navigation;
 import com.marketspace.application.services.EnderecoService;
 import com.marketspace.application.services.PessoaService;
 import com.marketspace.data.mappings.Endereco;
@@ -41,17 +43,8 @@ public class CadastroPessoaController implements IViewState {
 	private AnchorPane MainForm;
 
 	@FXML
-	private Button btnPrimeiroRegistro;
-
-	@FXML
-	private Button btnRegistroAnterior;
-
-	@FXML
-	private Button btnRegistroPosterior;
-
-	@FXML
-	private Button btnUltimoRegistro;
-
+	private Button btnVoltar;
+	
 	@FXML
 	private TextField txtCodigoPessoa;
 
@@ -152,9 +145,6 @@ public class CadastroPessoaController implements IViewState {
 	private Pane pnlPesquisaPessoa;
 
 	@FXML
-	private HBox hBoxNavegacao;
-	
-	@FXML
 	private HBox hBoxBotoesEndereco;
 
 	private PessoaService _pessoaService;
@@ -252,6 +242,11 @@ public class CadastroPessoaController implements IViewState {
 		SetDefaultView();
 		if (!txtCodigoPessoa.getText().isEmpty())
 			PesquisarPessoaPorId(Integer.parseInt(txtCodigoPessoa.getText()));
+	}
+	
+	@FXML
+	void VoltarATelaAnteriorEvent(ActionEvent event) throws IOException {
+		new Navigation().NavigateTo(event, "/com/marketspace/application/views/LoginView.fxml");
 	}
 	
 
@@ -472,7 +467,6 @@ public class CadastroPessoaController implements IViewState {
 		
 		btnNovoCadastro.setDisable(true);
 		pnlPesquisaPessoa.setDisable(true);
-		hBoxNavegacao.setDisable(true);
 		btnRemoverPessoa.setDisable(true);
 		btnAtualizarPessoa.setDisable(true);
 
@@ -491,7 +485,6 @@ public class CadastroPessoaController implements IViewState {
 		btnCadastrarPessoa.setDisable(true);
 		txtCodigoPessoa.setDisable(true);
 		pnlPesquisaPessoa.setDisable(true);
-		hBoxNavegacao.setDisable(true);
 		DesabilitarFormularioPessoa(false);
 		DesabilitarFormularioEndereco(false);
 		hBoxBotoesEndereco.setDisable(false);
@@ -507,7 +500,6 @@ public class CadastroPessoaController implements IViewState {
 		btnNovoCadastro.setDisable(true);
 		btnCadastrarPessoa.setDisable(true);
 		pnlPesquisaPessoa.setDisable(true);
-		hBoxNavegacao.setDisable(true);
 		DesabilitarFormularioPessoa(false);
 		DesabilitarFormularioEndereco(false);
 		hBoxBotoesEndereco.setDisable(false);
@@ -527,7 +519,6 @@ public class CadastroPessoaController implements IViewState {
 		DesabilitarFormularioPessoa(true);
 		DesabilitarFormularioEndereco(true);
 		hBoxBotoesEndereco.setDisable(true);
-		hBoxNavegacao.setDisable(false);
 
 		btnRemoverPessoa.setDisable(true);
 		btnAtualizarPessoa.setDisable(true);

@@ -27,6 +27,7 @@
     -fx-border-radius: 20px;
     -fx-text-fill: white;
     -fx-cursor: hand;
+    -fx-text-fill: black;
 }
 
 .button-top-menu:hover{

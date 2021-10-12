@@ -2,6 +2,7 @@ package com.marketspace.data.repositories;
 
 import java.util.List;
 
+import javax.management.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -13,6 +14,7 @@ import org.hibernate.HibernateException;
 import com.marketspace.data.configurations.DbContextProvider;
 import com.marketspace.data.mappings.Pessoa;
 import com.marketspace.data.mappings.TipoPessoa;
+import com.marketspace.domain.enums.NavegacaoEnum;
 
 public class PessoaRepository {
 	EntityManager _entityManager;
@@ -34,7 +36,31 @@ public class PessoaRepository {
 		}
 		return pessoa;
 	}
-
+	
+	public void BuscarPessoaPorNavegacao(int id, NavegacaoEnum navegacao) {
+		try {
+			String baseHql = "Select top 1 * from Pessoa %s";
+			switch (navegacao) {
+				case Primeiro:
+					baseHql = String.format(baseHql, ""+id);
+					break;
+				case Anterior:
+					baseHql = String.format(baseHql,  "where id < '"+ id +"'");
+					break;
+				case Proximo:
+					baseHql = String.format(baseHql, "where id > '"+ id +"'");
+					break;
+				case Ultimo:
+					baseHql = String.format(baseHql, "order by id desc");
+					break;
+			}
+			Pessoa pessoa = _entityManager.createQuery(baseHql,Pessoa.class).getSingleResult();
+			
+		} catch (Exception e) {
+			
+		}
+	}
+	
 	public List<TipoPessoa> ObterTiposDePessoa() {
 
 		CriteriaBuilder cb = new DbContextProvider().getEntityManagerFactory().getCriteriaBuilder();

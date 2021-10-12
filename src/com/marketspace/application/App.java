@@ -18,8 +18,9 @@ public class App  extends Application {
 	    	FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/com/marketspace/application/views/LoginView.fxml"));
 	    	Parent root = loader.load();
 	    	primaryStage.setTitle("MarketSpace");
-	    	primaryStage.setMinWidth(800);
-	        primaryStage.setMinHeight(500);
+	    	primaryStage.setMinWidth(1100);
+	        primaryStage.setMinHeight(800);
+	        primaryStage.setMaximized(true);
 	        primaryStage.setScene(new Scene(root, 1028, 682));
 	        primaryStage.setResizable(true);
 	        //primaryStage.initStyle(StageStyle.UNIFIED);
