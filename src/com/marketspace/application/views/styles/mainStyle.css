@@ -15,6 +15,19 @@
     -fx-color: white;
 }
 
+.aside-menu-button{
+	-fx-background-color: #E9E9E9;
+    -fx-background-radius: 0px;
+    -fx-text-fill: black;
+    -fx-cursor: hand;
+}
+
+.aside-menu-button:hover{
+	-fx-background-color: #C4C4C4;
+    -fx-background-radius: 0px;
+    -fx-text-fill: black;
+    -fx-cursor: hand;
+}
 .label{
 	-fx-text-fill: #24424F;
 	-fx-font-weight: 400;

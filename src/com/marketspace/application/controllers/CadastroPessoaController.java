@@ -246,7 +246,7 @@ public class CadastroPessoaController implements IViewState {
 	
 	@FXML
 	void VoltarATelaAnteriorEvent(ActionEvent event) throws IOException {
-		new Navigation().NavigateTo(event, "/com/marketspace/application/views/LoginView.fxml");
+		new Navigation().NavigateTo(event, "/com/marketspace/application/views/MenuView.fxml");
 	}
 	
 

@@ -37,7 +37,7 @@ public class Pessoa implements Serializable {
 	private Usuario Usuario;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	private TipoPessoa TipoPessoa;
+	private TipoPessoa TipoPessoa;  
 
 	@OneToMany(mappedBy = "Pessoa", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Endereco> Enderecos;
