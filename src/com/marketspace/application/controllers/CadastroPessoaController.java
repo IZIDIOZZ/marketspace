@@ -16,6 +16,9 @@ import com.marketspace.data.mappings.Pessoa;
 import com.marketspace.data.mappings.TipoPessoa;
 import com.marketspace.domain.enums.TipoPessoaEnum;
 import com.marketspace.domain.interfaces.IViewState;
+import com.marketspace.domain.validators.CNPJValidator;
+import com.marketspace.domain.validators.CPFValidator;
+import com.marketspace.domain.validators.InputValidator;
 import com.marketspace.domain.viewModels.EnderecoViewModel;
 
 import javafx.beans.value.ChangeListener;
@@ -163,6 +166,7 @@ public class CadastroPessoaController implements IViewState {
 	public void initialize() {
 		ConfiguraTabelaEndereco();
 		ConfiguraComboTipoPessoa();
+		ConfiguraInputs();
 		ObterValoresComboTipoPessoa();
 		ObterValoresComboEstado();
 		SetDefaultView();
@@ -185,6 +189,9 @@ public class CadastroPessoaController implements IViewState {
 
 	@FXML
 	void CadastrarPessoaEvent(ActionEvent event) {
+
+		if(!DadosInseridosSaoValidos()) return;
+		
 		MontarPessoaComEntradasDoFormulario();
 		
 		if (_pessoaService.CadastrarPessoa(_pessoa)) {
@@ -195,6 +202,8 @@ public class CadastroPessoaController implements IViewState {
 
 	@FXML
 	void AtualizarPessoaEvent(ActionEvent event) {
+		if(!DadosInseridosSaoValidos()) return;
+		
 		MontarPessoaComEntradasDoFormulario();
 		SetEditView();
 		if (_pessoaService.AtualizarPessoa(_pessoa)) {
@@ -239,6 +248,7 @@ public class CadastroPessoaController implements IViewState {
 
 	@FXML
 	void CancelarOperacaoEvent(ActionEvent event) {
+		LimparFormulario();
 		SetDefaultView();
 		if (!txtCodigoPessoa.getText().isEmpty())
 			PesquisarPessoaPorId(Integer.parseInt(txtCodigoPessoa.getText()));
@@ -262,6 +272,10 @@ public class CadastroPessoaController implements IViewState {
 			PreencherFormularioPessoa(_pessoa);
 			PreencherGridEnderecos(_pessoa.getEnderecos());
 			MudancaTipoDePessoaEvent();
+		}
+		else {
+			new DialogMessage("Usuário não encontrado", "Nenhum usuário com o id "+txtCodigoPessoa.getText()+" foi encontrado", AlertType.WARNING).Show(); 
+			LimparFormulario();
 		}
 	}
 
@@ -437,7 +451,15 @@ public class CadastroPessoaController implements IViewState {
 				((TableView<?>) control).getItems().clear();
 		});
 	}
+	
 
+	public void ConfiguraInputs() {
+		List<TextField> TextInputs = List.of(txtCodigoPessoa,txtCEP);
+		TextInputs.forEach(x->InputValidator.SetNumericLimitInput(x,8));
+		InputValidator.SetNumericLimitInput(txtCPF,11);
+		InputValidator.SetNumericLimitInput(txtCNPJ,14);
+	}
+	
 	public void DesabilitarFormularioPessoa(boolean estado) {
 		txtRazaoSocial.setDisable(estado);
 		txtNomeFantasia.setDisable(estado);
@@ -454,6 +476,40 @@ public class CadastroPessoaController implements IViewState {
 		txtCidade.setDisable(estado);
 		cmbEstado.setDisable(estado);
 		grdEndereco.setDisable(estado);
+	}
+	
+	public boolean DadosInseridosSaoValidos() {
+		String documento = EhPessoaFisica() ? "CPF": "CNPJ";
+		
+		try {
+			if(!CamposParaCadastroEstaoPrenchidos())
+				throw new IllegalArgumentException("Um ou mais Campos não estão preenchidos");
+			
+			if(! (EhPessoaFisica() ? CPFValidator.isCPF(txtCPF.getText()) : CNPJValidator.isCNPJ(txtCNPJ.getText())))
+				throw new IllegalArgumentException("Insira um "+ documento +" válido");
+			
+			if( grdEndereco.getItems().size() == 0)
+				throw new IllegalArgumentException("Insira no mínimo um Endereco");
+			
+			return true;
+		} catch (IllegalArgumentException e) {
+			new DialogMessage("Campos inválidos no Cadastro", e.getMessage(), AlertType.WARNING).Show(); 
+			return false;
+		}
+	}
+	
+	
+	public boolean CamposParaCadastroEstaoPrenchidos(){
+		List<Control> controles = new ArrayList<Control>(List.of(txtRazaoSocial, txtNomeFantasia, cmbTipoPessoa, EhPessoaFisica()?txtCPF:txtCNPJ));
+		boolean todosControlesPreenchidos = true;
+		for(Control control: controles){
+				if (control instanceof ComboBox<?>)
+					 if(((ComboBox<?>) control).getSelectionModel().isEmpty()) todosControlesPreenchidos = false ;
+				
+				if (control instanceof TextField)
+					 if(((TextField) control).getText().isBlank() || ((TextField) control).getText().isEmpty()) todosControlesPreenchidos = false;
+			};
+		return todosControlesPreenchidos;
 	}
 	
 	@Override
@@ -519,7 +575,7 @@ public class CadastroPessoaController implements IViewState {
 		DesabilitarFormularioPessoa(true);
 		DesabilitarFormularioEndereco(true);
 		hBoxBotoesEndereco.setDisable(true);
-
+		
 		btnRemoverPessoa.setDisable(true);
 		btnAtualizarPessoa.setDisable(true);
 		btnCancelarOperacao.setDisable(true);

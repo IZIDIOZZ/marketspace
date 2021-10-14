@@ -29,8 +29,7 @@ public class PessoaService {
 
 	public boolean CadastrarPessoa(Pessoa pessoa) {
 		boolean cadastro = false;
-		if(pessoa.getEnderecos() == null) new DialogMessage("Insira no mínimo um Endereco", "Endereço requerido", AlertType.WARNING).Show(); 
-		
+				
 		if(!_pessoaRepository.InserirPessoa(pessoa)) 
 			new DialogMessage("Ocorreu um erro ao cadastrar a pessoa.", "Falha ao cadastrar", AlertType.WARNING).Show();
 		else cadastro = true;
