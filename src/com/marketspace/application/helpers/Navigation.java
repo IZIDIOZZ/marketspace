@@ -3,6 +3,7 @@ package com.marketspace.application.helpers;
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
@@ -22,6 +23,11 @@ public class Navigation {
 		currentStage.setWidth(bounds.getWidth());
 		currentStage.setHeight(bounds.getHeight());
 		currentStage.show();
+	}
+	
+	@FXML
+	void VoltarAoMenu(ActionEvent event) throws IOException {
+		new Navigation().NavigateTo(event, "/com/marketspace/application/views/MenuView.fxml");
 	}
 	
 }

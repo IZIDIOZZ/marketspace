@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.marketspace.application.helpers.Navigation;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -41,7 +42,16 @@ public class MenuController {
     private Button btnSair;
     
     @FXML
+    private void SairEvent() {
+    	Platform.exit();
+    }
+    @FXML
     private void IrParaTelaDeCadastroPessoaEvent(ActionEvent event) throws IOException {
     	new Navigation().NavigateTo(event, "/com/marketspace/application/views/CadastroPessoaView.fxml"); 
+    }
+    
+    @FXML
+    private void IrParaTelaDeCadastroUsuarioEvent(ActionEvent event) throws IOException {
+    	new Navigation().NavigateTo(event, "/com/marketspace/application/views/CadastroUsuarioView.fxml"); 
     }
 }

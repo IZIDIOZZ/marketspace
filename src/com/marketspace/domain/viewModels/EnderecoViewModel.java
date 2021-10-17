@@ -2,9 +2,6 @@ package com.marketspace.domain.viewModels;
 
 import java.util.Date;
 
-import com.marketspace.data.mappings.Endereco;
-import com.marketspace.data.mappings.Estado;
-
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;

@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import com.marketspace.domain.interfaces.IEntity;
+import com.marketspace.domain.viewModels.PessoaViewModel;
 
 @Entity
 public class Pessoa implements Serializable {
@@ -151,6 +151,16 @@ public class Pessoa implements Serializable {
 		TipoPessoa = tipoPessoa;
 	}
 
+	public PessoaViewModel ConverterTo() {
+		return new PessoaViewModel(
+				this.getId(), 
+				this.getRazaoSocial(), 
+				this.getNomeFantasia(), 
+				this.getDocumento(),
+				this.getTipoPessoa().getTipoPessoa(), 
+				false);
+	}
+	
 	@Override
 	public String toString() {
 		return "Pessoa [Id=" + Id + ", RazaoSocial=" + RazaoSocial + ", NomeFantasia=" + NomeFantasia + ", Documento="
@@ -158,4 +168,6 @@ public class Pessoa implements Serializable {
 				+ Usuario + ", TipoPessoa=" + TipoPessoa + ", Enderecos=" + "]";
 	}
 
+	
+	
 }

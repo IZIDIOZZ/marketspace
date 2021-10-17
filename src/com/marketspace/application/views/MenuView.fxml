@@ -41,7 +41,7 @@
                         <Font size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnUsuario" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="800.0" mnemonicParsing="false" prefWidth="286.0" styleClass="aside-menu-button" text="Usuarios" VBox.vgrow="ALWAYS">
+                  <Button fx:id="btnUsuario" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="800.0" mnemonicParsing="false" onAction="#IrParaTelaDeCadastroUsuarioEvent" prefWidth="286.0" styleClass="aside-menu-button" text="Usuarios" VBox.vgrow="ALWAYS">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -70,7 +70,7 @@
                                     <Font size="15.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="btnCentroUsuario" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="54.0" prefWidth="273.0" text="Usuarios" HBox.hgrow="ALWAYS">
+                              <Button fx:id="btnCentroUsuario" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#IrParaTelaDeCadastroUsuarioEvent" prefHeight="54.0" prefWidth="273.0" text="Usuarios" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -101,7 +101,7 @@
                            <children>
                               <VBox alignment="BOTTOM_RIGHT" prefHeight="221.0" prefWidth="451.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Button fx:id="btnSair" focusTraversable="false" mnemonicParsing="false" prefHeight="31.0" prefWidth="165.0" text="Sair">
+                                    <Button fx:id="btnSair" focusTraversable="false" mnemonicParsing="false" onAction="#SairEvent" prefHeight="31.0" prefWidth="165.0" text="Sair">
                                        <font>
                                           <Font size="15.0" />
                                        </font>

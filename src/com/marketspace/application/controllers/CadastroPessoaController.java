@@ -1,6 +1,5 @@
 package com.marketspace.application.controllers;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,7 +14,6 @@ import com.marketspace.data.mappings.Estado;
 import com.marketspace.data.mappings.Pessoa;
 import com.marketspace.data.mappings.TipoPessoa;
 import com.marketspace.domain.enums.TipoPessoaEnum;
-import com.marketspace.domain.interfaces.IViewState;
 import com.marketspace.domain.validators.CNPJValidator;
 import com.marketspace.domain.validators.CPFValidator;
 import com.marketspace.domain.validators.InputValidator;
@@ -40,14 +38,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
-public class CadastroPessoaController implements IViewState {
+public class CadastroPessoaController extends Navigation {
 
 	@FXML
 	private AnchorPane MainForm;
 
 	@FXML
 	private Button btnVoltar;
-	
+
 	@FXML
 	private TextField txtCodigoPessoa;
 
@@ -176,12 +174,12 @@ public class CadastroPessoaController implements IViewState {
 	void AdicionarEnderecoGridEnderecoEvent(ActionEvent event) {
 		InserirEndereco();
 	}
-	
+
 	@FXML
 	void RemoverEnderecoGridEnderecoEvent(ActionEvent event) {
 		RemoverEndereco();
 	}
-	
+
 	@FXML
 	void AlterarEnderecoGridEnderecoEvent(ActionEvent event) {
 		AlterarEndereco();
@@ -190,10 +188,11 @@ public class CadastroPessoaController implements IViewState {
 	@FXML
 	void CadastrarPessoaEvent(ActionEvent event) {
 
-		if(!DadosInseridosSaoValidos()) return;
-		
+		if (!DadosInseridosSaoValidos())
+			return;
+
 		MontarPessoaComEntradasDoFormulario();
-		
+
 		if (_pessoaService.CadastrarPessoa(_pessoa)) {
 			new DialogMessage("Cadastro realizado com sucesso.", "Cadastro realizado com sucesso",
 					AlertType.INFORMATION).Show();
@@ -202,8 +201,9 @@ public class CadastroPessoaController implements IViewState {
 
 	@FXML
 	void AtualizarPessoaEvent(ActionEvent event) {
-		if(!DadosInseridosSaoValidos()) return;
-		
+		if (!DadosInseridosSaoValidos())
+			return;
+
 		MontarPessoaComEntradasDoFormulario();
 		SetEditView();
 		if (_pessoaService.AtualizarPessoa(_pessoa)) {
@@ -217,12 +217,12 @@ public class CadastroPessoaController implements IViewState {
 
 	@FXML
 	void RemoverPessoaEvent(ActionEvent event) {
-		
-		Optional<ButtonType> reposta =  new DialogMessage("Deseja realmente remover esta pessoa?",
+
+		Optional<ButtonType> reposta = new DialogMessage("Deseja realmente remover esta pessoa?",
 				"Ao Aceitar, você estará removendo todos os registros relacionados com essa pessoa.",
 				AlertType.CONFIRMATION).Show();
-		
-		if(reposta.get() == ButtonType.OK) {
+
+		if (reposta.get() == ButtonType.OK) {
 			if (_pessoaService.RemoverPessoa(Integer.parseInt(txtCodigoPessoa.getText()))) {
 				new DialogMessage("Pessoa removida com sucesso", "Todos os dados desta pessoa foram removidos",
 						AlertType.INFORMATION).Show();
@@ -253,12 +253,6 @@ public class CadastroPessoaController implements IViewState {
 		if (!txtCodigoPessoa.getText().isEmpty())
 			PesquisarPessoaPorId(Integer.parseInt(txtCodigoPessoa.getText()));
 	}
-	
-	@FXML
-	void VoltarATelaAnteriorEvent(ActionEvent event) throws IOException {
-		new Navigation().NavigateTo(event, "/com/marketspace/application/views/MenuView.fxml");
-	}
-	
 
 	public void MudancaTipoDePessoaEvent() {
 		Control controle = EhPessoaFisica() ? txtCNPJ : txtCPF;
@@ -268,13 +262,14 @@ public class CadastroPessoaController implements IViewState {
 
 	public void PesquisarPessoaPorId(int Id) {
 		_pessoa = _pessoaService.PesquisarPessoaPorId(Id);
-		if(_pessoa != null) {
+		if (_pessoa != null) {
 			PreencherFormularioPessoa(_pessoa);
 			PreencherGridEnderecos(_pessoa.getEnderecos());
 			MudancaTipoDePessoaEvent();
-		}
-		else {
-			new DialogMessage("Usuário não encontrado", "Nenhum usuário com o id "+txtCodigoPessoa.getText()+" foi encontrado", AlertType.WARNING).Show(); 
+		} else {
+			new DialogMessage("Usuário não encontrado",
+					"Nenhum usuário com o id " + txtCodigoPessoa.getText() + " foi encontrado", AlertType.WARNING)
+							.Show();
 			LimparFormulario();
 		}
 	}
@@ -366,20 +361,22 @@ public class CadastroPessoaController implements IViewState {
 
 		grdEndereco.getItems().add(evm);
 	}
-	
+
 	public void AlterarEndereco() {
-		Endereco endereco = new Endereco(Integer.parseInt(txtIdEndereco.getText()),txtCEP.getText(), txtEndereco.getText(), txtBairro.getText(),
-				txtCidade.getText(), txtNumero.getText(), new Date(), new Date(), _pessoa,
+		Endereco endereco = new Endereco(Integer.parseInt(txtIdEndereco.getText()), txtCEP.getText(),
+				txtEndereco.getText(), txtBairro.getText(), txtCidade.getText(), txtNumero.getText(), new Date(),
+				new Date(), _pessoa,
 				_enderecoService.PesquisarEstadoPorNome(cmbEstado.getSelectionModel().getSelectedItem().toString()));
 
 		AtualizarEnderecoNaPessoa(endereco);
 		PreencherGridEnderecos(_pessoa.getEnderecos());
 	}
+
 	public void RemoverEndereco() {
 		RemoverEnderecoNaPessoa(Integer.parseInt(txtIdEndereco.getText()));
 		PreencherGridEnderecos(_pessoa.getEnderecos());
 	}
-	
+
 	public void AdicionarEnderecoNaPessoa(Endereco endereco) {
 		if (_pessoa.getEnderecos() != null)
 			_pessoa.getEnderecos().add(endereco);
@@ -389,33 +386,35 @@ public class CadastroPessoaController implements IViewState {
 			_pessoa.setEnderecos(enderecos);
 		}
 	}
-	
+
 	public void AtualizarEnderecoNaPessoa(Endereco enderecoAtualizado) {
 		int index = 0;
-		for(Endereco e :_pessoa.getEnderecos()){
-				if(e.getId() == enderecoAtualizado.getId()) index = _pessoa.getEnderecos().indexOf(e);
+		for (Endereco e : _pessoa.getEnderecos()) {
+			if (e.getId() == enderecoAtualizado.getId())
+				index = _pessoa.getEnderecos().indexOf(e);
 		}
 		_pessoa.getEnderecos().set(index, enderecoAtualizado);
-	    
+
 	}
-	
+
 	public void RemoverEnderecoNaPessoa(int enderecoId) {
 		int index = 0;
-		for(Endereco e :_pessoa.getEnderecos()){
-				if(e.getId() == enderecoId) index = _pessoa.getEnderecos().indexOf(e);
+		for (Endereco e : _pessoa.getEnderecos()) {
+			if (e.getId() == enderecoId)
+				index = _pessoa.getEnderecos().indexOf(e);
 		}
 		_pessoa.getEnderecos().remove(index);
 	}
-	
 
 	public String RetornaDocumentoPessoa() {
 		return EhPessoaFisica() ? txtCPF.getText() : txtCNPJ.getText();
 	}
 
 	public boolean EhPessoaFisica() {
-		if(cmbTipoPessoa.getSelectionModel().getSelectedItem() == null) return true;
+		if (cmbTipoPessoa.getSelectionModel().getSelectedItem() == null)
+			return true;
 		return cmbTipoPessoa.getSelectionModel().getSelectedItem().equals(TipoPessoaEnum.Fisica.getTipoPessoa());
-			
+
 	}
 
 	public void MontarPessoaComEntradasDoFormulario() {
@@ -429,17 +428,18 @@ public class CadastroPessoaController implements IViewState {
 	}
 
 	public void DesabilitarDocumento(TipoPessoaEnum tipo) {
-			txtCNPJ.setDisable(tipo == TipoPessoaEnum.Fisica);
-			txtCPF.setDisable(!(tipo == TipoPessoaEnum.Fisica));
+		txtCNPJ.setDisable(tipo == TipoPessoaEnum.Fisica);
+		txtCPF.setDisable(!(tipo == TipoPessoaEnum.Fisica));
 	}
-	
+
 	public void LimparPessoa() {
 		_pessoa = new Pessoa();
 	}
 
 	public void LimparFormulario() {
-		List<Control> controles = new ArrayList<Control>(List.of(txtRazaoSocial, txtNomeFantasia, cmbTipoPessoa, txtCPF,
-				txtCNPJ, txtCEP, txtEndereco, txtNumero, txtBairro, txtCidade, cmbEstado, grdEndereco, txtCodigoPessoa));
+		List<Control> controles = new ArrayList<Control>(
+				List.of(txtRazaoSocial, txtNomeFantasia, cmbTipoPessoa, txtCPF, txtCNPJ, txtCEP, txtEndereco, txtNumero,
+						txtBairro, txtCidade, cmbEstado, grdEndereco, txtCodigoPessoa));
 
 		LimparPessoa();
 		controles.forEach(control -> {
@@ -451,15 +451,14 @@ public class CadastroPessoaController implements IViewState {
 				((TableView<?>) control).getItems().clear();
 		});
 	}
-	
 
 	public void ConfiguraInputs() {
-		List<TextField> TextInputs = List.of(txtCodigoPessoa,txtCEP);
-		TextInputs.forEach(x->InputValidator.SetNumericLimitInput(x,8));
-		InputValidator.SetNumericLimitInput(txtCPF,11);
-		InputValidator.SetNumericLimitInput(txtCNPJ,14);
+		List<TextField> TextInputs = List.of(txtCodigoPessoa, txtCEP);
+		TextInputs.forEach(x -> InputValidator.SetNumericLimitInput(x, 8));
+		InputValidator.SetNumericLimitInput(txtCPF, 11);
+		InputValidator.SetNumericLimitInput(txtCNPJ, 14);
 	}
-	
+
 	public void DesabilitarFormularioPessoa(boolean estado) {
 		txtRazaoSocial.setDisable(estado);
 		txtNomeFantasia.setDisable(estado);
@@ -467,7 +466,7 @@ public class CadastroPessoaController implements IViewState {
 		txtCPF.setDisable(estado);
 		txtCNPJ.setDisable(estado);
 	}
-	
+
 	public void DesabilitarFormularioEndereco(boolean estado) {
 		txtCEP.setDisable(estado);
 		txtEndereco.setDisable(estado);
@@ -477,42 +476,44 @@ public class CadastroPessoaController implements IViewState {
 		cmbEstado.setDisable(estado);
 		grdEndereco.setDisable(estado);
 	}
-	
+
 	public boolean DadosInseridosSaoValidos() {
-		String documento = EhPessoaFisica() ? "CPF": "CNPJ";
-		
+		String documento = EhPessoaFisica() ? "CPF" : "CNPJ";
+
 		try {
-			if(!CamposParaCadastroEstaoPrenchidos())
+			if (!CamposParaCadastroEstaoPrenchidos())
 				throw new IllegalArgumentException("Um ou mais Campos não estão preenchidos");
-			
-			if(! (EhPessoaFisica() ? CPFValidator.isCPF(txtCPF.getText()) : CNPJValidator.isCNPJ(txtCNPJ.getText())))
-				throw new IllegalArgumentException("Insira um "+ documento +" válido");
-			
-			if( grdEndereco.getItems().size() == 0)
+
+			if (!(EhPessoaFisica() ? CPFValidator.isCPF(txtCPF.getText()) : CNPJValidator.isCNPJ(txtCNPJ.getText())))
+				throw new IllegalArgumentException("Insira um " + documento + " válido");
+
+			if (grdEndereco.getItems().size() == 0)
 				throw new IllegalArgumentException("Insira no mínimo um Endereco");
-			
+
 			return true;
 		} catch (IllegalArgumentException e) {
-			new DialogMessage("Campos inválidos no Cadastro", e.getMessage(), AlertType.WARNING).Show(); 
+			new DialogMessage("Campos inválidos no Cadastro", e.getMessage(), AlertType.WARNING).Show();
 			return false;
 		}
 	}
-	
-	
-	public boolean CamposParaCadastroEstaoPrenchidos(){
-		List<Control> controles = new ArrayList<Control>(List.of(txtRazaoSocial, txtNomeFantasia, cmbTipoPessoa, EhPessoaFisica()?txtCPF:txtCNPJ));
+
+	public boolean CamposParaCadastroEstaoPrenchidos() {
+		List<Control> controles = new ArrayList<Control>(
+				List.of(txtRazaoSocial, txtNomeFantasia, cmbTipoPessoa, EhPessoaFisica() ? txtCPF : txtCNPJ));
 		boolean todosControlesPreenchidos = true;
-		for(Control control: controles){
-				if (control instanceof ComboBox<?>)
-					 if(((ComboBox<?>) control).getSelectionModel().isEmpty()) todosControlesPreenchidos = false ;
-				
-				if (control instanceof TextField)
-					 if(((TextField) control).getText().isBlank() || ((TextField) control).getText().isEmpty()) todosControlesPreenchidos = false;
-			};
+		for (Control control : controles) {
+			if (control instanceof ComboBox<?>)
+				if (((ComboBox<?>) control).getSelectionModel().isEmpty())
+					todosControlesPreenchidos = false;
+
+			if (control instanceof TextField)
+				if (((TextField) control).getText().isBlank() || ((TextField) control).getText().isEmpty())
+					todosControlesPreenchidos = false;
+		}
+		;
 		return todosControlesPreenchidos;
 	}
-	
-	@Override
+
 	public void SetInsertView() {
 		cmbTipoPessoa.setDisable(false);
 		btnCadastrarPessoa.setDisable(false);
@@ -520,7 +521,7 @@ public class CadastroPessoaController implements IViewState {
 		DesabilitarFormularioPessoa(false);
 		DesabilitarFormularioEndereco(false);
 		hBoxBotoesEndereco.setDisable(false);
-		
+
 		btnNovoCadastro.setDisable(true);
 		pnlPesquisaPessoa.setDisable(true);
 		btnRemoverPessoa.setDisable(true);
@@ -529,12 +530,10 @@ public class CadastroPessoaController implements IViewState {
 		txtCodigoPessoa.setText("");
 	}
 
-	@Override
 	public void SetDeleteView() {
 
 	}
-	
-	@Override
+
 	public void SetEditView() {
 		cmbTipoPessoa.setDisable(true);
 		btnNovoCadastro.setDisable(true);
@@ -544,13 +543,12 @@ public class CadastroPessoaController implements IViewState {
 		DesabilitarFormularioPessoa(false);
 		DesabilitarFormularioEndereco(false);
 		hBoxBotoesEndereco.setDisable(false);
-		
+
 		btnRemoverPessoa.setDisable(false);
 		btnAtualizarPessoa.setDisable(false);
 		btnCancelarOperacao.setDisable(false);
 	}
 
-	@Override
 	public void SetSearchView() {
 		cmbTipoPessoa.setDisable(true);
 		btnNovoCadastro.setDisable(true);
@@ -559,13 +557,12 @@ public class CadastroPessoaController implements IViewState {
 		DesabilitarFormularioPessoa(false);
 		DesabilitarFormularioEndereco(false);
 		hBoxBotoesEndereco.setDisable(false);
-		
+
 		btnRemoverPessoa.setDisable(false);
 		btnAtualizarPessoa.setDisable(false);
 		btnCancelarOperacao.setDisable(false);
 	}
 
-	@Override
 	public void SetDefaultView() {
 		cmbTipoPessoa.setDisable(false);
 		btnNovoCadastro.setDisable(false);
@@ -575,7 +572,7 @@ public class CadastroPessoaController implements IViewState {
 		DesabilitarFormularioPessoa(true);
 		DesabilitarFormularioEndereco(true);
 		hBoxBotoesEndereco.setDisable(true);
-		
+
 		btnRemoverPessoa.setDisable(true);
 		btnAtualizarPessoa.setDisable(true);
 		btnCancelarOperacao.setDisable(true);

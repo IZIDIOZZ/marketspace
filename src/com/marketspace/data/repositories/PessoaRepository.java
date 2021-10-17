@@ -10,11 +10,14 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.HibernateException;
+import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.Restrictions;
 
 import com.marketspace.data.configurations.DbContextProvider;
 import com.marketspace.data.mappings.Pessoa;
 import com.marketspace.data.mappings.TipoPessoa;
 import com.marketspace.domain.enums.NavegacaoEnum;
+
 
 public class PessoaRepository {
 	EntityManager _entityManager;
@@ -37,28 +40,17 @@ public class PessoaRepository {
 		return pessoa;
 	}
 	
-	public void BuscarPessoaPorNavegacao(int id, NavegacaoEnum navegacao) {
-		try {
-			String baseHql = "Select top 1 * from Pessoa %s";
-			switch (navegacao) {
-				case Primeiro:
-					baseHql = String.format(baseHql, ""+id);
-					break;
-				case Anterior:
-					baseHql = String.format(baseHql,  "where id < '"+ id +"'");
-					break;
-				case Proximo:
-					baseHql = String.format(baseHql, "where id > '"+ id +"'");
-					break;
-				case Ultimo:
-					baseHql = String.format(baseHql, "order by id desc");
-					break;
-			}
-			Pessoa pessoa = _entityManager.createQuery(baseHql,Pessoa.class).getSingleResult();
-			
-		} catch (Exception e) {
-			
-		}
+	public List<Pessoa> BuscarPessoasPorDocumentoOuNome(String pesquisa) {
+		Predicate[] condicoes = new Predicate[3];
+		CriteriaBuilder cb = new DbContextProvider().getEntityManagerFactory().getCriteriaBuilder();
+		CriteriaQuery<Pessoa> ctr = cb.createQuery(Pessoa.class);
+		Root<Pessoa> root = ctr.from(Pessoa.class);
+		
+		condicoes[0] = (cb.like(root.get("RazaoSocial"), "%"+pesquisa+"%"));
+		condicoes[1] = (cb.like(root.get("NomeFantasia"), "%"+pesquisa+"%"));
+		condicoes[2] = (cb.equal(root.get("Documento"), (pesquisa.replace("-", "").replace(".", "").replace("/", "")).replaceAll("\\s+", "")));
+		ctr.select(root).where(cb.or(condicoes));
+		return _entityManager.createQuery(ctr).getResultList();
 	}
 	
 	public List<TipoPessoa> ObterTiposDePessoa() {

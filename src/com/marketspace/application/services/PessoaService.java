@@ -20,7 +20,11 @@ public class PessoaService {
 	public Pessoa PesquisarPessoaPorId(int id) {
 		return _pessoaRepository.BuscarPessoa(id);
 	}
-
+	
+	public List<Pessoa> PesquisarPessoasPorDocumentoOuNome(String pesquisa) {
+		return _pessoaRepository.BuscarPessoasPorDocumentoOuNome(pesquisa);
+	}
+	
 	public List<String> PesquisarTodosTiposDePessoas() {
 		List<String> TiposPessoa = new ArrayList<String>();
 		_pessoaRepository.ObterTiposDePessoa().forEach(x -> TiposPessoa.add(x.getTipoPessoa()));
