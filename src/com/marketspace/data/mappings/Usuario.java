@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,6 +19,8 @@ public class Usuario implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int Id;
+	
+	@Column(unique = true)
 	private String Login;
 	private String Senha;
 	private Date DataCadastro;
@@ -68,7 +71,6 @@ public class Usuario implements Serializable {
 	public void setDataAtualizacao(Date dataAtualizacao) {
 		DataAtualizacao = dataAtualizacao;
 	}
-	
 	
 	public Pessoa getPessoa() {
 		return Pessoa;

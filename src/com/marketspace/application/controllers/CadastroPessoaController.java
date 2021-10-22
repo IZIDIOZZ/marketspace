@@ -14,6 +14,7 @@ import com.marketspace.data.mappings.Estado;
 import com.marketspace.data.mappings.Pessoa;
 import com.marketspace.data.mappings.TipoPessoa;
 import com.marketspace.domain.enums.TipoPessoaEnum;
+import com.marketspace.domain.enums.TipoRespostaBotaoEnum;
 import com.marketspace.domain.validators.CNPJValidator;
 import com.marketspace.domain.validators.CPFValidator;
 import com.marketspace.domain.validators.InputValidator;
@@ -220,7 +221,7 @@ public class CadastroPessoaController extends Navigation {
 
 		Optional<ButtonType> reposta = new DialogMessage("Deseja realmente remover esta pessoa?",
 				"Ao Aceitar, você estará removendo todos os registros relacionados com essa pessoa.",
-				AlertType.CONFIRMATION).Show();
+				AlertType.CONFIRMATION, TipoRespostaBotaoEnum.YesOrNo).Show();
 
 		if (reposta.get() == ButtonType.OK) {
 			if (_pessoaService.RemoverPessoa(Integer.parseInt(txtCodigoPessoa.getText()))) {

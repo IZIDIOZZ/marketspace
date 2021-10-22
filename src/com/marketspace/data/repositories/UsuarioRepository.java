@@ -14,6 +14,8 @@ import com.marketspace.data.mappings.NivelUsuario;
 import com.marketspace.data.mappings.Pessoa;
 import com.marketspace.data.mappings.Usuario;
 
+import net.bytebuddy.implementation.bytecode.Throw;
+
 public class UsuarioRepository {
 	EntityManager _entityManager;
 
@@ -35,42 +37,38 @@ public class UsuarioRepository {
 		return usuario;
 	}
 	
-	public boolean InserirUsuario(Usuario usuario) {
-		try {
-			_entityManager.getTransaction().begin();
-			_entityManager.merge(usuario);
-			return true;
-		} catch (HibernateException e) {
-			System.out.println(e.getMessage());
-			return false;
-		} finally {
-			_entityManager.getTransaction().commit();
-		}
+	public NivelUsuario BuscarNivelUsuario(String nivelUsuario) {
+		CriteriaBuilder cb = new DbContextProvider().getEntityManagerFactory().getCriteriaBuilder();
+		CriteriaQuery<NivelUsuario> ctr = cb.createQuery(NivelUsuario.class);
+		Root<NivelUsuario> root = ctr.from(NivelUsuario.class);
+		ctr.select(root).where(cb.equal(root.get("Nivel"), nivelUsuario));
+		return _entityManager.createQuery(ctr).getSingleResult();
 	}
 	
-	public void AtualizarUsuario(Usuario usuario) {
-		try {
+	public void InserirUsuario(Usuario usuario) {
 			_entityManager.getTransaction().begin();
 			_entityManager.merge(usuario);
-
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		} finally {
 			_entityManager.getTransaction().commit();
-		}
 	}
 	
-	public void RemoverUsuario(int usuarioId) {
-		try {
+	public void AtualizarUsuario(Usuario usuario) throws Exception {
 			_entityManager.getTransaction().begin();
-			_entityManager.remove(_entityManager.find(Pessoa.class, usuarioId));
-
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		} finally {
+			_entityManager.merge(usuario);
 			_entityManager.getTransaction().commit();
-		}
 	}
+	
+	public void RemoverUsuario(int usuarioId) throws Exception {
+			try {
+				_entityManager.getTransaction().begin();
+				Usuario usuario = _entityManager.find(Usuario.class, usuarioId);
+				_entityManager.remove(usuario);
+				_entityManager.getTransaction().commit();
+			} catch (HibernateException e) {
+				System.out.println(e);
+			}
+			
+	}
+	
 	public List<NivelUsuario> BuscarTodosNiveisUsuario() {
 		CriteriaBuilder cb = new DbContextProvider().getEntityManagerFactory().getCriteriaBuilder();
 		CriteriaQuery<NivelUsuario> ctr = cb.createQuery(NivelUsuario.class);
