@@ -46,7 +46,7 @@
                         <Font size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnProduto" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="800.0" mnemonicParsing="false" prefWidth="286.0" styleClass="aside-menu-button" text="Produtos" VBox.vgrow="ALWAYS">
+                  <Button fx:id="btnProduto" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="800.0" mnemonicParsing="false" onAction="#IrParaTelaDeCadastroProdutoEvent" prefWidth="286.0" styleClass="aside-menu-button" text="Produtos" VBox.vgrow="ALWAYS">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -82,7 +82,7 @@
                         </HBox>
                         <HBox alignment="CENTER" layoutX="30.0" layoutY="208.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="60.0" spacing="20.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Button fx:id="btnLogbtnCentroProduto" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="54.0" prefWidth="273.0" text="Produtos" HBox.hgrow="ALWAYS">
+                              <Button fx:id="btnLogbtnCentroProduto" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#IrParaTelaDeCadastroProdutoEvent" prefHeight="54.0" prefWidth="273.0" text="Produtos" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font size="15.0" />
                                  </font>

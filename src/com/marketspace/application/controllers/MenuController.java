@@ -54,4 +54,9 @@ public class MenuController {
     private void IrParaTelaDeCadastroUsuarioEvent(ActionEvent event) throws IOException {
     	new Navigation().NavigateTo(event, "/com/marketspace/application/views/CadastroUsuarioView.fxml"); 
     }
+    
+    @FXML
+    private void IrParaTelaDeCadastroProdutoEvent(ActionEvent event) throws IOException {
+    	new Navigation().NavigateTo(event, "/com/marketspace/application/views/CadastroProdutoView.fxml"); 
+    }
 }
