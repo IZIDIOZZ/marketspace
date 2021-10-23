@@ -243,8 +243,8 @@ public class CadastroPessoaController extends Navigation {
 
 	@FXML
 	void PesquisarPessoaPorIdEvent(ActionEvent event) {
-		SetSearchView();
 		PesquisarPessoaPorId(Integer.parseInt(txtCodigoPessoa.getText()));
+		
 	}
 
 	@FXML
@@ -263,16 +263,16 @@ public class CadastroPessoaController extends Navigation {
 
 	public void PesquisarPessoaPorId(int Id) {
 		_pessoa = _pessoaService.PesquisarPessoaPorId(Id);
-		if (_pessoa != null) {
-			PreencherFormularioPessoa(_pessoa);
-			PreencherGridEnderecos(_pessoa.getEnderecos());
-			MudancaTipoDePessoaEvent();
-		} else {
+		if (_pessoa == null) {
 			new DialogMessage("Usuário não encontrado",
 					"Nenhum usuário com o id " + txtCodigoPessoa.getText() + " foi encontrado", AlertType.WARNING)
 							.Show();
-			LimparFormulario();
+			return;
 		}
+		SetSearchView();
+		PreencherFormularioPessoa(_pessoa);
+		PreencherGridEnderecos(_pessoa.getEnderecos());
+		MudancaTipoDePessoaEvent();
 	}
 
 	public void PreencherGridEnderecos(List<Endereco> enderecos) {

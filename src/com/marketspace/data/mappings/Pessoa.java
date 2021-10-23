@@ -3,6 +3,7 @@ package com.marketspace.data.mappings;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -33,15 +34,18 @@ public class Pessoa implements Serializable {
 	private Date DataCadastro;
 	private Date DataAtualizacao;
 
-	@OneToOne(mappedBy = "Pessoa", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(mappedBy = "Pessoa", fetch = FetchType.EAGER)
 	private Usuario Usuario;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private TipoPessoa TipoPessoa;  
 
+	@OneToMany(mappedBy = "Fornecedor", fetch = FetchType.EAGER)
+	private Set<Produto> Produtos;
+	
 	@OneToMany(mappedBy = "Pessoa", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Endereco> Enderecos;
-
+	
 	public List<Endereco> getEnderecos() {
 		return Enderecos;
 	}
@@ -124,6 +128,14 @@ public class Pessoa implements Serializable {
 		endereco.setPessoa(null);
 	}
 	
+	public Set<Produto> getProdutos() {
+		return Produtos;
+	}
+
+	public void setProdutos(Set<Produto> produtos) {
+		Produtos = produtos;
+	}
+
 	public Pessoa() {
 	}
 
@@ -149,6 +161,23 @@ public class Pessoa implements Serializable {
 		DataCadastro = dataCadastro;
 		DataAtualizacao = dataAtualizacao;
 		TipoPessoa = tipoPessoa;
+	}
+	
+	
+
+	public Pessoa(int id, String razaoSocial, String nomeFantasia, String documento, Date dataCadastro,
+			Date dataAtualizacao,Usuario usuario, TipoPessoa tipoPessoa, List<Endereco> enderecos, Set<Produto> produtos) {
+		super();
+		Id = id;
+		RazaoSocial = razaoSocial;
+		NomeFantasia = nomeFantasia;
+		Documento = documento;
+		DataCadastro = dataCadastro;
+		DataAtualizacao = dataAtualizacao;
+		Usuario = usuario;
+		TipoPessoa = tipoPessoa;
+		Enderecos = enderecos;
+		Produtos = produtos;
 	}
 
 	public PessoaViewModel ConverterTo() {

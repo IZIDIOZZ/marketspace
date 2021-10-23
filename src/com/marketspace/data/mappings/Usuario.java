@@ -26,7 +26,7 @@ public class Usuario implements Serializable {
 	private Date DataCadastro;
 	private Date DataAtualizacao;
 	
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER)
 	private Pessoa Pessoa;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
