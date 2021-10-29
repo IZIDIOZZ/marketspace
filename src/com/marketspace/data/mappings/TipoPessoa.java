@@ -39,6 +39,6 @@ public class TipoPessoa implements Serializable {
 
 	@Override
 	public String toString() {
-		return "TipoPessoa [Id=" + Id + ", TipoPessoa=" + TipoPessoa + "]";
+		return TipoPessoa;
 	}
 }

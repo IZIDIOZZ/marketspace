@@ -20,11 +20,15 @@ public class PessoaService {
 	public Pessoa PesquisarPessoaPorId(int id) {
 		return _pessoaRepository.BuscarPessoa(id);
 	}
-	
+
 	public List<Pessoa> PesquisarPessoasPorDocumentoOuNome(String pesquisa) {
 		return _pessoaRepository.BuscarPessoasPorDocumentoOuNome(pesquisa);
 	}
-	
+
+	public List<Pessoa> PesquisarFornecedoresPorDocumentoOuNome(String pesquisa) {
+		return _pessoaRepository.BuscarFornecedorPorDocumentoOuNome(pesquisa);
+	}
+
 	public List<String> PesquisarTodosTiposDePessoas() {
 		List<String> TiposPessoa = new ArrayList<String>();
 		_pessoaRepository.ObterTiposDePessoa().forEach(x -> TiposPessoa.add(x.getTipoPessoa()));
@@ -33,11 +37,12 @@ public class PessoaService {
 
 	public boolean CadastrarPessoa(Pessoa pessoa) {
 		boolean cadastro = false;
-				
-		if(!_pessoaRepository.InserirPessoa(pessoa)) 
+
+		if (!_pessoaRepository.InserirPessoa(pessoa))
 			new DialogMessage("Ocorreu um erro ao cadastrar a pessoa.", "Falha ao cadastrar", AlertType.WARNING).Show();
-		else cadastro = true;
-		
+		else
+			cadastro = true;
+
 		return cadastro;
 	}
 
@@ -45,12 +50,12 @@ public class PessoaService {
 		_pessoaRepository.AtualizarPessoa(pessoa);
 		return true;
 	}
-	
+
 	public boolean RemoverPessoa(int id) {
 		_pessoaRepository.RemoverPessoa(id);
 		return true;
 	}
-	
+
 	public TipoPessoa RetornarTipoPessoa(String tipoPessoa) {
 		return _pessoaRepository.BuscarTipoPessoa(tipoPessoa);
 	}

@@ -17,6 +17,7 @@ import com.marketspace.data.configurations.DbContextProvider;
 import com.marketspace.data.mappings.Pessoa;
 import com.marketspace.data.mappings.TipoPessoa;
 import com.marketspace.domain.enums.NavegacaoEnum;
+import com.marketspace.domain.enums.TipoPessoaEnum;
 
 
 public class PessoaRepository {
@@ -50,6 +51,23 @@ public class PessoaRepository {
 		condicoes[1] = (cb.like(root.get("NomeFantasia"), "%"+pesquisa+"%"));
 		condicoes[2] = (cb.equal(root.get("Documento"), (pesquisa.replace("-", "").replace(".", "").replace("/", "")).replaceAll("\\s+", "")));
 		ctr.select(root).where(cb.or(condicoes));
+		return _entityManager.createQuery(ctr).getResultList();
+	}
+	
+	public List<Pessoa> BuscarFornecedorPorDocumentoOuNome(String pesquisa) {
+		CriteriaBuilder cb = new DbContextProvider().getEntityManagerFactory().getCriteriaBuilder();
+		CriteriaQuery<Pessoa> ctr = cb.createQuery(Pessoa.class);
+		Root<Pessoa> root = ctr.from(Pessoa.class);
+		
+		Predicate IgualRazaoSocial = cb.or(cb.like(root.get("RazaoSocial"), "%"+pesquisa+"%"));
+		Predicate IgualNomeFantasia = cb.or(cb.like(root.get("NomeFantasia"), "%"+pesquisa+"%"));
+		Predicate IgualDocumento= cb.or(cb.equal(root.get("Documento"), (pesquisa.replace("-", "").replace(".", "").replace("/", "")).replaceAll("\\s+", "")));
+		Predicate condicaoPesquisa = cb.or(IgualRazaoSocial,IgualNomeFantasia,IgualDocumento);
+		Predicate condicaoSeEhPessoa = cb.and(cb.equal(root.get("TipoPessoa").<String>get("TipoPessoa"), TipoPessoaEnum.Juridica.getTipoPessoa()));
+		Predicate condicaoFinal = cb.and(condicaoSeEhPessoa,condicaoPesquisa);
+		
+		ctr.select(root).where(condicaoFinal);
+		
 		return _entityManager.createQuery(ctr).getResultList();
 	}
 	

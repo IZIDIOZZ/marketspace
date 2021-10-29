@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.marketspace.domain.viewModels.FornecedorViewModel;
 import com.marketspace.domain.viewModels.PessoaViewModel;
 
 @Entity
@@ -188,6 +189,14 @@ public class Pessoa implements Serializable {
 				this.getDocumento(),
 				this.getTipoPessoa().getTipoPessoa(), 
 				false);
+	}
+	
+	public FornecedorViewModel ConverterToFornecedorViewModel() {
+		return new FornecedorViewModel(
+				this.getId(), 
+				this.getRazaoSocial(), 
+				this.getNomeFantasia(), 
+				this.getDocumento());
 	}
 	
 	@Override

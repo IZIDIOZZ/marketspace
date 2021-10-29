@@ -47,7 +47,7 @@ public class UsuarioRepository {
 
 	public void InserirUsuario(Usuario usuario) {
 		_entityManager.getTransaction().begin();
-		_entityManager.merge(usuario);
+		_entityManager.persist(usuario);
 		_entityManager.getTransaction().commit();
 	}
 

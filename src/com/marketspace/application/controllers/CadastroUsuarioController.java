@@ -15,8 +15,10 @@ import com.marketspace.data.mappings.Pessoa;
 import com.marketspace.data.mappings.Usuario;
 import com.marketspace.domain.entities.ControlViewState;
 import com.marketspace.domain.enums.TipoRespostaBotaoEnum;
+import com.marketspace.domain.validators.BasicValidator;
 import com.marketspace.domain.validators.InputValidator;
 import com.marketspace.domain.viewModels.PessoaViewModel;
+
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -35,7 +37,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
-public class CadastroUsuarioController extends Navigation {
+public class CadastroUsuarioController extends Navigation{
 
 	@FXML
 	private AnchorPane MainForm;
@@ -167,7 +169,7 @@ public class CadastroUsuarioController extends Navigation {
 
 	@FXML
 	void PesquisarUsuarioPorIdEnvent(ActionEvent event) {
-		if (IsnullOrEmpty(txtCodigoUsuario.getText())) {
+		if (BasicValidator.IsnullOrEmpty(txtCodigoUsuario.getText())) {
 			new DialogMessage("Insira um Id para pesquisar um usuário.", "Campo de código vazio.", AlertType.WARNING)
 					.Show();
 			return;
@@ -191,7 +193,7 @@ public class CadastroUsuarioController extends Navigation {
 
 	@FXML
 	void RemoverUsuarioEvent(ActionEvent event) {
-		if (IsnullOrEmpty(txtCodigoUsuario.getText())) {
+		if (BasicValidator.IsnullOrEmpty(txtCodigoUsuario.getText())) {
 			new DialogMessage("Pesquise o usuário que deseja para remover.", "Nenhum usuário selecionado para remoção.",
 					AlertType.WARNING).Show();
 			return;
@@ -286,14 +288,15 @@ public class CadastroUsuarioController extends Navigation {
 			if (!txtSenha.getText().equals(txtConfirmarSenha.getText()))
 				throw new IllegalArgumentException("As Senhas não coincidem.");
 
-			if (IsnullOrEmpty(txtCodigoPessoa.getText()))
+			if (BasicValidator.IsnullOrEmpty(txtCodigoPessoa.getText()))
 				throw new IllegalArgumentException("Selecione uma pessoa para este usuário.");
 
 			if (cboTipoUsuario.getSelectionModel().getSelectedItem() == null)
 				throw new IllegalArgumentException("Insira um nivel de usuário.");
 
-			if (IsnullOrEmpty(txtSenha.getText()) || IsnullOrEmpty(txtConfirmarSenha.getText())
-					|| IsnullOrEmpty(txtUsuario.getText()))
+			if (BasicValidator.IsnullOrEmpty(txtSenha.getText()) 
+					|| BasicValidator.IsnullOrEmpty(txtConfirmarSenha.getText())
+					|| BasicValidator.IsnullOrEmpty(txtUsuario.getText()))
 				throw new IllegalArgumentException("Um ou mais campos não foram preenchidos");
 
 			return true;
@@ -409,10 +412,5 @@ public class CadastroUsuarioController extends Navigation {
 	public void ConfiguraInputs() {
 		InputValidator.SetNumericLimitInput(txtCodigoUsuario, 20);
 	}
-	
-	public boolean IsnullOrEmpty(String texto) {
-		if (texto == null)
-			return false;
-		return texto.isBlank() || texto.isEmpty();
-	}
+
 }

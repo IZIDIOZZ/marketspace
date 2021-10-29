@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -27,6 +28,7 @@ public class Usuario implements Serializable {
 	private Date DataAtualizacao;
 	
 	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "Pessoa_ID", referencedColumnName = "Id")
 	private Pessoa Pessoa;
 	
 	@ManyToOne(fetch = FetchType.EAGER)

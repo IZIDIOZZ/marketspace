@@ -192,9 +192,9 @@
       <TableView fx:id="grdFornecedor" layoutX="26.0" layoutY="324.0" prefHeight="512.0" prefWidth="912.0" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="324.0">
          <columns>
             <TableColumn id="CodigoPessoa" fx:id="colCodigoFornecedor" editable="false" prefWidth="75.0" text="Código de Fornecedor" />
+            <TableColumn id="RazaoSocial" fx:id="colCNPJ" editable="false" prefWidth="229.0" text="CNPJ" />
             <TableColumn id="RazaoSocial" fx:id="colRazaoSocial" editable="false" prefWidth="229.0" text="Razão Social" />
             <TableColumn id="RazaoSocial" fx:id="colNomeFantasia" editable="false" prefWidth="229.0" text="Nome Fantasia" />
-            <TableColumn id="TipoPessoa" fx:id="colJaTemVinculo" prefWidth="75.0" text="Ja Tem Vínculo" visible="false" />
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
