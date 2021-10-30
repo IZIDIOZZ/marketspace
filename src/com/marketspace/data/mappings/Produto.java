@@ -101,5 +101,16 @@ public class Produto implements Serializable {
 		DataCadastro = dataCadastro;
 		DataAtualizacao = dataAtualizacao;
 	}
+	
+	public Produto(String nome, String codigoBarras, Float preco, Pessoa fornecedor, Date dataCadastro,
+			Date dataAtualizacao) {
+		super();
+		Nome = nome;
+		CodigoBarras = codigoBarras;
+		Preco = preco;
+		Fornecedor = fornecedor;
+		DataCadastro = dataCadastro;
+		DataAtualizacao = dataAtualizacao;
+	}
 
 }

@@ -140,7 +140,7 @@ public class CadastroUsuarioController extends Navigation{
 		if (_usuarioService.AtualizarUsuario(AtualizarUsuarioAtravesDoFormulario(usuario)))
 			new DialogMessage("Usuario Atualizado com sucesso", "Sucesso ao Atualizar", AlertType.INFORMATION).Show();
 		else
-			new DialogMessage("Ocorreu um erro ao atualiar o usuário.", "Falha ao Atualizar", AlertType.ERROR).Show();
+			new DialogMessage("Ocorreu um erro ao atualizar o usuário.", "Falha ao Atualizar", AlertType.ERROR).Show();
 		DefinirPadraoVisualizacao();
 	}
 
@@ -384,19 +384,12 @@ public class CadastroUsuarioController extends Navigation{
 	public void LimparFormulario() {
 			List<Control> controles = new ArrayList<Control>(
 					List.of(txtCodigoUsuario,
-							btnPesquisarUsuarioPorId,
 							txtUsuario,
 							txtSenha,
 							txtConfirmarSenha,
 							cboTipoUsuario,
 							grdPessoa,
 							txtPesquisarPessoa,
-							btnPesquisarPessoa,
-							btnCadastrarPessoa,
-							btnAtualizarPessoa,
-							btnRemoverPessoa,
-							btnNovoCadastro,
-							btnCancelarOperacao,
 							txtCodigoPessoa));
 
 			controles.forEach(control -> {

@@ -13,27 +13,55 @@ public class ProdutoRepository {
 	}
 
 	public Produto BuscarProdutoPorId(int ProdutoId) {
-		_entityManager.getTransaction().begin();
-		Produto produto = _entityManager.find(Produto.class, ProdutoId);
-		_entityManager.getTransaction().commit();
-		return produto;
+		try {
+			_entityManager.getTransaction().begin();
+			Produto produto = _entityManager.find(Produto.class, ProdutoId);
+			return produto;
+		}catch (Exception e) {	
+			return null;
+		}
+		finally {
+			_entityManager.getTransaction().commit();
+		}
 	}
 
-	public void InserirProduto(Produto produto) {
-		_entityManager.getTransaction().begin();
-		_entityManager.persist(produto);
-		_entityManager.getTransaction().commit();
+	public boolean InserirProduto(Produto produto) {
+		try {
+			_entityManager.getTransaction().begin();
+			_entityManager.persist(produto);
+			return true;
+		}catch (Exception e) {	
+			return false;
+		}
+		finally {
+			_entityManager.getTransaction().commit();
+		}
+
 	}
 
-	public void AtualizarProduto(Produto produto) {
-		_entityManager.getTransaction().begin();
-		_entityManager.merge(produto);
-		_entityManager.getTransaction().commit();
+	public boolean AtualizarProduto(Produto produto) {
+		try {
+			_entityManager.getTransaction().begin();
+			_entityManager.merge(produto);
+			return true;
+		}catch (Exception e) {	
+			return false;
+		}
+		finally {
+			_entityManager.getTransaction().commit();
+		}
 	}
 
-	public void RemoverProduto(int ProdutoId) {
-		_entityManager.getTransaction().begin();
-		_entityManager.merge(_entityManager.find(Produto.class, ProdutoId));
-		_entityManager.getTransaction().commit();
+	public boolean RemoverProduto(int ProdutoId) {
+		try {
+			_entityManager.getTransaction().begin();
+			_entityManager.remove(_entityManager.find(Produto.class, ProdutoId));
+			return true;
+		}catch (Exception e) {	
+			return false;
+		}
+		finally {
+			_entityManager.getTransaction().commit();
+		}
 	}
 }

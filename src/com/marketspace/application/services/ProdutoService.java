@@ -11,12 +11,7 @@ public class ProdutoService {
 	}
 
 	public boolean AtualizarProduto(Produto produto) {
-		try {
-			_produtorepository.AtualizarProduto(produto);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
+		return _produtorepository.AtualizarProduto(produto);
 	}
 
 	public Produto PesquisarProdutoPorId(int ProdutoId) {
@@ -24,20 +19,10 @@ public class ProdutoService {
 	}
 
 	public boolean RemoverProduto(int ProdutoId) {
-		try {
-			_produtorepository.RemoverProduto(ProdutoId);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
+		return _produtorepository.RemoverProduto(ProdutoId);
 	}
 
 	public boolean InserirProduto(Produto produto) {
-		try {
-			_produtorepository.InserirProduto(produto);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
+		return _produtorepository.InserirProduto(produto);
 	}
 }
