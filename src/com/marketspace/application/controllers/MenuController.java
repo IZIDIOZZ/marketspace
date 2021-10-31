@@ -1,13 +1,18 @@
 package com.marketspace.application.controllers;
 
 import java.io.IOException;
+import java.util.Optional;
 
+import com.marketspace.application.helpers.DialogMessage;
 import com.marketspace.application.helpers.Navigation;
+import com.marketspace.domain.enums.TipoRespostaBotaoEnum;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
 
 public class MenuController {
 
@@ -43,7 +48,11 @@ public class MenuController {
     
     @FXML
     private void SairEvent() {
-    	Platform.exit();
+		if (new DialogMessage("Deseja realmente sair?",
+				"Sair do MarkerSpace.", AlertType.CONFIRMATION,
+				TipoRespostaBotaoEnum.YesOrNo).Show().get() == ButtonType.OK) {
+			Platform.exit();		
+		}
     }
     @FXML
     private void IrParaTelaDeCadastroPessoaEvent(ActionEvent event) throws IOException {
@@ -58,5 +67,10 @@ public class MenuController {
     @FXML
     private void IrParaTelaDeCadastroProdutoEvent(ActionEvent event) throws IOException {
     	new Navigation().NavigateTo(event, "/com/marketspace/application/views/CadastroProdutoView.fxml"); 
+    }
+    
+    @FXML
+    private void IrParaTelaDeCaixaEvent(ActionEvent event) throws IOException {
+    	new Navigation().NavigateTo(event, "/com/marketspace/application/views/CaixaView.fxml"); 
     }
 }

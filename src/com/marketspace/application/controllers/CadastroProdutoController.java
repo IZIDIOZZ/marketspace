@@ -249,6 +249,9 @@ public class CadastroProdutoController extends Navigation {
 			if (Float.valueOf(txtPreco.getText()) == 0F)
 				throw new IllegalArgumentException("Valor do produto não pode ser 0.");
 
+			if (_produtoService.CodigoDeBarrasJaExiste(txtCodigoBarras.getText()))	
+				throw new IllegalArgumentException("Código de barras já cadastrado.");
+			
 			return true;
 		} catch (IllegalArgumentException e) {
 			new DialogMessage("Campos inválidos no cadastro de produto", e.getMessage(), AlertType.WARNING).Show();

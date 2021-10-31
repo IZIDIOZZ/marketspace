@@ -29,5 +29,4 @@ public class Navigation {
 	void VoltarAoMenu(ActionEvent event) throws IOException {
 		new Navigation().NavigateTo(event, "/com/marketspace/application/views/MenuView.fxml");
 	}
-	
 }

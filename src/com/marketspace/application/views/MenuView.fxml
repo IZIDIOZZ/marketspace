@@ -28,7 +28,7 @@
                         </VBox>
                      </children>
                   </AnchorPane>
-                  <Button fx:id="btnCaixa" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="800.0" mnemonicParsing="false" prefWidth="374.0" styleClass="aside-menu-button" text="Caixa" VBox.vgrow="ALWAYS">
+                  <Button fx:id="btnCaixa" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="800.0" mnemonicParsing="false" onAction="#IrParaTelaDeCaixaEvent" prefWidth="374.0" styleClass="aside-menu-button" text="Caixa" VBox.vgrow="ALWAYS">
                      <font>
                         <Font size="15.0" />
                      </font>
