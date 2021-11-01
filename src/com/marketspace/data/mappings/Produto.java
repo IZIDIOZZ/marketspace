@@ -3,7 +3,6 @@ package com.marketspace.data.mappings;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import com.marketspace.domain.viewModels.ItemVendaViewModel;
 
 @Entity
 public class Produto implements Serializable {
@@ -111,6 +112,16 @@ public class Produto implements Serializable {
 		Fornecedor = fornecedor;
 		DataCadastro = dataCadastro;
 		DataAtualizacao = dataAtualizacao;
+	}
+	
+	public ItemVendaViewModel CreateItemVenda() {
+		return new ItemVendaViewModel(
+					this.getId(),
+					this.getNome(),
+					1,
+					this.getPreco(),
+					this.getCodigoBarras()
+				);
 	}
 
 }

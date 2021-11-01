@@ -6,11 +6,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.persistence.metamodel.EntityType;
-import javax.persistence.metamodel.Metamodel;
 
 import com.marketspace.data.configurations.DbContextProvider;
-import com.marketspace.data.mappings.Pessoa;
 import com.marketspace.data.mappings.Usuario;
 
 public class AuthRepository {

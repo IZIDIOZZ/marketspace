@@ -1,7 +1,6 @@
 package com.marketspace.application.controllers;
 
 import java.io.IOException;
-import java.util.Optional;
 
 import com.marketspace.application.helpers.DialogMessage;
 import com.marketspace.application.helpers.Navigation;
@@ -10,9 +9,9 @@ import com.marketspace.domain.enums.TipoRespostaBotaoEnum;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Alert.AlertType;
 
 public class MenuController {
 

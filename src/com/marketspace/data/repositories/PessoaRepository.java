@@ -2,7 +2,6 @@ package com.marketspace.data.repositories;
 
 import java.util.List;
 
-import javax.management.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -10,13 +9,10 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.HibernateException;
-import org.hibernate.criterion.Disjunction;
-import org.hibernate.criterion.Restrictions;
 
 import com.marketspace.data.configurations.DbContextProvider;
 import com.marketspace.data.mappings.Pessoa;
 import com.marketspace.data.mappings.TipoPessoa;
-import com.marketspace.domain.enums.NavegacaoEnum;
 import com.marketspace.domain.enums.TipoPessoaEnum;
 
 

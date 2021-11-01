@@ -1,6 +1,5 @@
 package com.marketspace.application.helpers;
 
-import java.util.List;
 import java.util.Optional;
 
 import com.marketspace.domain.enums.ImageEnum;

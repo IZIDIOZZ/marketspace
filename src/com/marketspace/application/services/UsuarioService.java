@@ -3,12 +3,9 @@ package com.marketspace.application.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.marketspace.application.helpers.DialogMessage;
 import com.marketspace.data.mappings.NivelUsuario;
 import com.marketspace.data.mappings.Usuario;
 import com.marketspace.data.repositories.UsuarioRepository;
-
-import javafx.scene.control.Alert.AlertType;
 
 public class UsuarioService {
 	UsuarioRepository _usuarioRepository;

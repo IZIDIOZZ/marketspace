@@ -48,7 +48,7 @@
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <Button fx:id="btnAdicionarProduto" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="407.0" layoutY="-2.0" mnemonicParsing="false" onAction="#PesquisarFornecedorEvent" prefHeight="31.0" prefWidth="36.0" styleClass="button-top-menu">
+                        <Button fx:id="btnAdicionarProduto" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="407.0" layoutY="-2.0" mnemonicParsing="false" onAction="#AdicionarItemNaVenda" prefHeight="31.0" prefWidth="36.0" styleClass="button-top-menu">
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true" styleClass="button-top-menu">
                                  <image>
@@ -57,11 +57,32 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="btnRemoverProduto" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="458.0" layoutY="-2.0" mnemonicParsing="false" onAction="#PesquisarFornecedorEvent" prefHeight="31.0" prefWidth="36.0" styleClass="button-top-menu">
+                        <Button fx:id="btnRemoverProduto" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="505.0" layoutY="-2.0" mnemonicParsing="false" onAction="#RemoverItemVenda" prefHeight="31.0" prefWidth="36.0" styleClass="button-top-menu">
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true" styleClass="button-top-menu">
                                  <image>
                                     <Image url="@../../../../resources/img/black-24dp/2x/outline_delete_black_24dp.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnCancelarOperacao" focusTraversable="false" layoutX="555.0" layoutY="-2.0" mnemonicParsing="false" onAction="#CancelarOperacaoEvent" prefHeight="32.0" prefWidth="182.0" styleClass="button-top-menu" text=" Cancelar Operacao" textAlignment="CENTER">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true" styleClass="button-top-menu">
+                                 <image>
+                                    <Image url="@../../../../resources/img/black-24dp/2x/outline_history_black_24dp.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnRemoverUnidade" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="456.0" layoutY="-2.0" mnemonicParsing="false" onAction="#RemoverUnidadeItemVenda" prefHeight="31.0" prefWidth="36.0" styleClass="button-top-menu">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true" styleClass="button-top-menu">
+                                 <image>
+                                    <Image url="@../../../../resources/img/black-24dp/2x/outline_remove_black_24dp.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -74,12 +95,13 @@
       </HBox>
       <HBox layoutX="28.0" layoutY="413.0" prefHeight="728.0" prefWidth="937.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="147.0">
          <children>
-            <TableView fx:id="grdProduto" prefHeight="728.0" prefWidth="772.0" HBox.hgrow="ALWAYS">
+            <TableView fx:id="grdItemVenda" prefHeight="728.0" prefWidth="772.0" HBox.hgrow="ALWAYS">
                <columns>
-                  <TableColumn id="RazaoSocial" fx:id="colCodigoProduto" editable="false" prefWidth="229.0" styleClass="header-table" text="Código Produto" />
-                  <TableColumn id="CodigoPessoa" fx:id="colNomeProduto" editable="false" prefWidth="75.0" styleClass="header-table" text="Nome Produto" />
-                  <TableColumn id="RazaoSocial" fx:id="colPrecoProduto" editable="false" prefWidth="229.0" styleClass="header-table" text="Preco Produto" />
-                  <TableColumn id="RazaoSocial" fx:id="colQuantidadeProduto" editable="false" prefWidth="229.0" styleClass="header-table" text="Quantidade" />
+                  <TableColumn id="RazaoSocial" fx:id="colCodigoItem" editable="false" prefWidth="229.0" styleClass="header-table" text="Código Produto" />
+                  <TableColumn id="CodigoPessoa" fx:id="colNomeItem" editable="false" prefWidth="75.0" styleClass="header-table" text="Nome Produto" />
+                  <TableColumn id="RazaoSocial" fx:id="colQuantidadeItem" editable="false" prefWidth="229.0" styleClass="header-table" text="Quantidade" />
+                  <TableColumn id="RazaoSocial" fx:id="colPrecoItem" editable="false" prefWidth="229.0" styleClass="header-table" text="Preco Produto" />
+                  <TableColumn id="RazaoSocial" fx:id="colCodigoBarras" editable="false" prefWidth="229.0" styleClass="header-table" text="Código de Barras" visible="false" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -104,7 +126,7 @@
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txtTotalCompra" prefHeight="31.0" prefWidth="274.0" promptText="O total da compra aparecerá aqui..." styleClass="input-field">
+                        <TextField fx:id="txtTotalCompra" editable="false" prefHeight="31.0" prefWidth="274.0" promptText="O total da compra aparecerá aqui..." styleClass="input-field" text="0">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -112,12 +134,12 @@
                      </children>
                   </VBox>
                   <Pane fx:id="pnlPesquisaPessoa11" prefHeight="460.0" prefWidth="274.0" VBox.vgrow="ALWAYS" />
-                  <Button fx:id="btnNovaCompra" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#AtualizarProdutoEvent" prefHeight="31.0" prefWidth="178.0" text="Nova Compra">
+                  <Button fx:id="btnNovaCompra" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#NovaCompraEvent" prefHeight="31.0" prefWidth="178.0" text="Nova Compra">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnFinalizarCompra" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#AtualizarProdutoEvent" prefHeight="31.0" prefWidth="178.0" text="Finalizar Compra">
+                  <Button fx:id="btnFinalizarCompra" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#FinalizarCompraEvent" prefHeight="31.0" prefWidth="178.0" text="Finalizar Compra">
                      <font>
                         <Font size="15.0" />
                      </font>

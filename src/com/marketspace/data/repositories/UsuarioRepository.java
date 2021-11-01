@@ -7,14 +7,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import org.hibernate.HibernateException;
-
 import com.marketspace.data.configurations.DbContextProvider;
 import com.marketspace.data.mappings.NivelUsuario;
-import com.marketspace.data.mappings.Pessoa;
 import com.marketspace.data.mappings.Usuario;
-
-import net.bytebuddy.implementation.bytecode.Throw;
 
 public class UsuarioRepository {
 	EntityManager _entityManager;

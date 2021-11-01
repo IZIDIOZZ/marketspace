@@ -2,15 +2,9 @@ package com.marketspace.application.controllers;
 
 import java.io.IOException;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.metamodel.EntityType;
-import javax.persistence.metamodel.Metamodel;
-
 import com.marketspace.application.helpers.DialogMessage;
 import com.marketspace.application.helpers.Navigation;
 import com.marketspace.application.services.AuthService;
-import com.marketspace.data.configurations.DbContextProvider;
 import com.marketspace.data.mappings.Usuario;
 
 import javafx.event.ActionEvent;

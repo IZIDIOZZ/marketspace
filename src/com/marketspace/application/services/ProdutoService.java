@@ -17,6 +17,10 @@ public class ProdutoService {
 	public Produto PesquisarProdutoPorId(int ProdutoId) {
 		return _produtoRepository.BuscarProdutoPorId(ProdutoId);
 	}
+	
+	public Produto PesquisarProdutoPorCodigoDeBarras(String codigoBarras) {
+		return _produtoRepository.BuscarProdutoPorCodigoDeBarras(codigoBarras);
+	}
 
 	public boolean RemoverProduto(int ProdutoId) {
 		return _produtoRepository.RemoverProduto(ProdutoId);
