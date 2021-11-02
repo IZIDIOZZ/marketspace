@@ -72,4 +72,9 @@ public class MenuController {
     private void IrParaTelaDeCaixaEvent(ActionEvent event) throws IOException {
     	new Navigation().NavigateTo(event, "/com/marketspace/application/views/CaixaView.fxml"); 
     }
+    
+    @FXML
+    private void IrParaTelaDeRelatorioAnalitico(ActionEvent event) throws IOException {
+    	new Navigation().NavigateTo(event, "/com/marketspace/application/views/RelatorioAnaliticoView.fxml"); 
+    }
 }

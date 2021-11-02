@@ -50,7 +50,7 @@ public class CaixaController extends Navigation {
 
 	@FXML
 	private Button btnAdicionarProduto;
-
+		
 	@FXML
 	private Button btnRemoverProduto;
 
@@ -199,14 +199,6 @@ public class CaixaController extends Navigation {
 	
 	private void RemoverItemVenda(String codigoBarras) {
 		this.venda.RemoverItemVenda(codigoBarras);
-	}
-	
-	public Venda Test() {
-		List<ItemVenda> itensVenda = new ArrayList<ItemVenda>();
-		Venda venda = new Venda("49869180276", 245.34F, new Date(), new Date());
-		itensVenda.add(new ItemVenda(_produtoService.PesquisarProdutoPorId(6), venda, 1, new Date(), new Date()));
-		venda.setItensVenda(itensVenda);
-		return venda;
 	}
 
 	public boolean ItemJaFoiAdicionado() {
