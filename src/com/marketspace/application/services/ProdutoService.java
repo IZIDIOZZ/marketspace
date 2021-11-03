@@ -30,7 +30,15 @@ public class ProdutoService {
 		return _produtoRepository.InserirProduto(produto);
 	}
 
+	public boolean CodigoDeBarrasJaExiste(String codigoBarras, int codigoProduto) {
+		Produto produto = _produtoRepository.BuscarProdutoPorCodigoDeBarras(codigoBarras);
+		if(produto == null) return false;
+		if(produto.getId() == codigoProduto) return false;
+		return true;
+	}
+	
 	public boolean CodigoDeBarrasJaExiste(String codigoBarras) {
 		return !(_produtoRepository.BuscarProdutoPorCodigoDeBarras(codigoBarras) == null);
-	};
+	}
+	
 }

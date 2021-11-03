@@ -46,6 +46,9 @@ public class MenuController {
     private Button btnSair;
     
     @FXML
+    private Button btnRelatorioSintetico;
+    
+    @FXML
     private void SairEvent() {
 		if (new DialogMessage("Deseja realmente sair?",
 				"Sair do MarkerSpace.", AlertType.CONFIRMATION,
@@ -76,5 +79,10 @@ public class MenuController {
     @FXML
     private void IrParaTelaDeRelatorioAnalitico(ActionEvent event) throws IOException {
     	new Navigation().NavigateTo(event, "/com/marketspace/application/views/RelatorioAnaliticoView.fxml"); 
+    }
+    
+    @FXML
+    private void IrParaTelaDeRelatorioSintetico(ActionEvent event) throws IOException {
+    	new Navigation().NavigateTo(event, "/com/marketspace/application/views/RelatorioSinteticoView.fxml"); 
     }
 }

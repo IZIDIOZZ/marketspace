@@ -124,8 +124,15 @@ public class CadastroProdutoController extends Navigation {
 
 	@FXML
 	void AtualizarProdutoEvent(ActionEvent event) {
+		
+		if (_produtoService.CodigoDeBarrasJaExiste(txtCodigoBarras.getText(),Integer.valueOf(txtCodigoProduto.getText()))) {
+			new DialogMessage("O Código de barras já foi cadastrado.", "Código de Barras já cadastro.", AlertType.WARNING).Show();
+			return;
+		}
+		
 		if (!ValidarFormulario())
 			return;
+		
 		if (_produtoService.AtualizarProduto(AtualizarProdutoAtravesDeFormulario(produto)))
 			new DialogMessage("Produto Atualizado com sucesso", "Produto Atualizado com sucesso", AlertType.INFORMATION)
 					.Show();
@@ -135,9 +142,15 @@ public class CadastroProdutoController extends Navigation {
 
 	@FXML
 	void CadastrarProdutoEvent(ActionEvent event) {
+		
+		if (_produtoService.CodigoDeBarrasJaExiste(txtCodigoBarras.getText())) {
+			new DialogMessage("O Código de barras já foi cadastrado.", "Código de Barras já cadastro.", AlertType.WARNING).Show();
+			return;
+		}
+		
 		if (!ValidarFormulario())
 			return;
-
+		
 		if (_produtoService.InserirProduto(CriarProdutoAtravesDeFormulario())){
 			new DialogMessage("Produto inserido com sucesso.", "Sucesso na inserção", AlertType.INFORMATION).Show();
 			LimparFormulario();
@@ -247,10 +260,7 @@ public class CadastroProdutoController extends Navigation {
 
 			if (Float.valueOf(txtPreco.getText()) == 0F)
 				throw new IllegalArgumentException("Valor do produto não pode ser 0.");
-
-			if (_produtoService.CodigoDeBarrasJaExiste(txtCodigoBarras.getText()))	
-				throw new IllegalArgumentException("Código de barras já cadastrado.");
-			
+		
 			return true;
 		} catch (IllegalArgumentException e) {
 			new DialogMessage("Campos inválidos no cadastro de produto", e.getMessage(), AlertType.WARNING).Show();
@@ -296,7 +306,7 @@ public class CadastroProdutoController extends Navigation {
 				new ControlViewState(txtPesquisarFornecedor, true), new ControlViewState(btnPesquisarFornecedor, true),
 				new ControlViewState(grdFornecedor, true), new ControlViewState(btnCancelarOperacao, true),
 				new ControlViewState(btnNovoCadastro, false), new ControlViewState(btnRemoverProduto, true),
-				new ControlViewState(btnAtualizarProduto, true), new ControlViewState(btnCadastrarProduto, true));
+				new ControlViewState(btnAtualizarProduto, true), new ControlViewState(btnCadastrarProduto, false));
 		DefineVisualizacaoTela(controles);
 	}
 

@@ -66,6 +66,7 @@ public class ProdutoRepository {
 	}
 
 	public Produto BuscarProdutoPorCodigoDeBarras(String codigoBarras) {
+		
 		try {
 			CriteriaBuilder cb = new DbContextProvider().getEntityManagerFactory().getCriteriaBuilder();
 			CriteriaQuery<Produto> ctr = cb.createQuery(Produto.class);
@@ -75,5 +76,6 @@ public class ProdutoRepository {
 		} catch (Exception e) {
 			return null;
 		}
+		
 	}
 }

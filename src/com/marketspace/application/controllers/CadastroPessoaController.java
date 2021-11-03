@@ -15,6 +15,7 @@ import com.marketspace.data.mappings.Pessoa;
 import com.marketspace.data.mappings.TipoPessoa;
 import com.marketspace.domain.enums.TipoPessoaEnum;
 import com.marketspace.domain.enums.TipoRespostaBotaoEnum;
+import com.marketspace.domain.validators.BasicValidator;
 import com.marketspace.domain.validators.CNPJValidator;
 import com.marketspace.domain.validators.CPFValidator;
 import com.marketspace.domain.validators.InputValidator;
@@ -178,6 +179,13 @@ public class CadastroPessoaController extends Navigation {
 
 	@FXML
 	void RemoverEnderecoGridEnderecoEvent(ActionEvent event) {
+		
+		if(grdEndereco.getItems().isEmpty()) {
+			new DialogMessage("Não há enderecos para remover", "Pessoa sem endereço cadastrado.",
+					AlertType.WARNING).Show();
+			return;
+		}
+		
 		RemoverEndereco();
 	}
 
@@ -197,6 +205,7 @@ public class CadastroPessoaController extends Navigation {
 		if (_pessoaService.CadastrarPessoa(_pessoa)) {
 			new DialogMessage("Cadastro realizado com sucesso.", "Cadastro realizado com sucesso",
 					AlertType.INFORMATION).Show();
+			LimparFormulario();
 		}
 	}
 
@@ -210,6 +219,7 @@ public class CadastroPessoaController extends Navigation {
 		if (_pessoaService.AtualizarPessoa(_pessoa)) {
 			new DialogMessage("Pessoa Atualizada com sucesso.", "Pessoa Atualizada com sucesso", AlertType.INFORMATION)
 					.Show();
+			LimparFormulario();
 		} else {
 			new DialogMessage("Ocorreu um erro ao atualizar a pessoa.", "Não foi possível atualizar a pessoa",
 					AlertType.WARNING).Show();
@@ -352,6 +362,8 @@ public class CadastroPessoaController extends Navigation {
 	}
 
 	public void InserirEndereco() {
+		if(!ValidarEndereco()) return;
+		
 		Endereco endereco = new Endereco(txtCEP.getText(), txtEndereco.getText(), txtBairro.getText(),
 				txtCidade.getText(), txtNumero.getText(), new Date(), new Date(), _pessoa,
 				_enderecoService.PesquisarEstadoPorNome(cmbEstado.getSelectionModel().getSelectedItem().toString()));
@@ -364,6 +376,7 @@ public class CadastroPessoaController extends Navigation {
 	}
 
 	public void AlterarEndereco() {
+		if(!ValidarEndereco()) return;
 		Endereco endereco = new Endereco(Integer.parseInt(txtIdEndereco.getText()), txtCEP.getText(),
 				txtEndereco.getText(), txtBairro.getText(), txtCidade.getText(), txtNumero.getText(), new Date(),
 				new Date(), _pessoa,
@@ -374,6 +387,7 @@ public class CadastroPessoaController extends Navigation {
 	}
 
 	public void RemoverEndereco() {
+		if(!ValidarEndereco()) return;
 		RemoverEnderecoNaPessoa(Integer.parseInt(txtIdEndereco.getText()));
 		PreencherGridEnderecos(_pessoa.getEnderecos());
 	}
@@ -490,10 +504,22 @@ public class CadastroPessoaController extends Navigation {
 
 			if (grdEndereco.getItems().size() == 0)
 				throw new IllegalArgumentException("Insira no mínimo um Endereco");
-
+			
 			return true;
 		} catch (IllegalArgumentException e) {
 			new DialogMessage("Campos inválidos no Cadastro", e.getMessage(), AlertType.WARNING).Show();
+			return false;
+		}
+	}
+	
+	public boolean ValidarEndereco() {
+		try {
+			if (!CamposParaCadastroDeEnderecoEstaoPrenchidos())
+				throw new IllegalArgumentException("Um ou mais campos para o cadastro do endereço não estão preenchidos.");
+			
+			return true;
+		} catch (IllegalArgumentException e) {
+			new DialogMessage("Campos inválidos no cadastro do endereço", e.getMessage(), AlertType.WARNING).Show();
 			return false;
 		}
 	}
@@ -511,7 +537,21 @@ public class CadastroPessoaController extends Navigation {
 				if (((TextField) control).getText().isBlank() || ((TextField) control).getText().isEmpty())
 					todosControlesPreenchidos = false;
 		}
-		;
+		return todosControlesPreenchidos;
+	}
+	
+	public boolean CamposParaCadastroDeEnderecoEstaoPrenchidos() {
+		List<Control> controles = new ArrayList<Control>(List.of(txtBairro, txtCEP, txtCidade, txtEndereco, txtNumero));
+		boolean todosControlesPreenchidos = true;
+		for (Control control : controles) {
+			if (control instanceof ComboBox<?>)
+				if (((ComboBox<?>) control).getSelectionModel().isEmpty())
+					todosControlesPreenchidos = false;
+			
+			if (control instanceof TextField)
+				if (((TextField) control).getText().isBlank() || ((TextField) control).getText().isEmpty())
+					todosControlesPreenchidos = false;
+		}
 		return todosControlesPreenchidos;
 	}
 
@@ -530,11 +570,6 @@ public class CadastroPessoaController extends Navigation {
 
 		txtCodigoPessoa.setText("");
 	}
-
-	public void SetDeleteView() {
-
-	}
-
 	public void SetEditView() {
 		cmbTipoPessoa.setDisable(true);
 		btnNovoCadastro.setDisable(true);

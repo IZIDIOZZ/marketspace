@@ -1,5 +1,6 @@
 package com.marketspace.data.mappings;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import com.marketspace.domain.viewModels.RelatorioSinteticoViewModel;
 
 @Entity
 public class Venda {
@@ -137,4 +140,19 @@ public class Venda {
 		}
 		CalcularTotalVenda();
 	}
+
+	public int getQuantidadeTotalDeProdutosVendidos() {
+		int QuantidadeTotalDeProdutosVendidos = 0;
+		for (ItemVenda item : this.getItensVenda()) {
+			QuantidadeTotalDeProdutosVendidos += item.getQuantidade();
+		}
+		return QuantidadeTotalDeProdutosVendidos;
+	}
+	
+	public RelatorioSinteticoViewModel ConvertToRelatorioSinteticoViewModel() {
+		return new RelatorioSinteticoViewModel(this.getId(), this.getValorTotal(), getQuantidadeTotalDeProdutosVendidos(),
+				new SimpleDateFormat("dd/MM/yyyy").format(this.getDataCadastro())
+				);
+	}
+
 }

@@ -28,7 +28,6 @@ import javafx.scene.control.Control;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -125,7 +124,7 @@ public class CaixaController extends Navigation {
 		if (ItemJaFoiAdicionado())
 			AdicionarUmaUnidadeNoProduto(txtCodigoBarrasProduto.getText());
 		else {
-			itensVenda.add(new ItemVenda(prod, venda, 1, new Date(), new Date()));
+			itensVenda.add(new ItemVenda(prod, venda, 1, new Date(), new Date(), prod.getPreco()));
 			venda.CalcularTotalVenda();
 		}
 		AtualizarTela();

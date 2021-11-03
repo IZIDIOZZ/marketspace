@@ -3,7 +3,6 @@ package com.marketspace.data.mappings;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,7 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.marketspace.domain.entities.ProdutoQuantidade;
 import com.marketspace.domain.viewModels.ItemVendaViewModel;
+import com.marketspace.domain.viewModels.RelatorioAnaliticoViewModel;
 
 @Entity
 public class ItemVenda implements Serializable {
@@ -28,9 +29,11 @@ public class ItemVenda implements Serializable {
 	@OneToOne(fetch = FetchType.EAGER)
 	private Produto Produto;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Venda Venda;
 
+	private Float Valor;
+	
 	public int getId() {
 		return Id;
 	}
@@ -78,11 +81,19 @@ public class ItemVenda implements Serializable {
 	public void setDataAtualizacao(Date dataAtualizacao) {
 		DataAtualizacao = dataAtualizacao;
 	}
+	
+	public Float getValor() {
+		return Valor;
+	}
+
+	public void setValor(Float valor) {
+		Valor = valor;
+	}
 
 	public ItemVenda() {
 	}
 
-	public ItemVenda(int id, Produto produto, Venda venda, int quantidade, Date dataCadastro, Date dataAtualizacao) {
+	public ItemVenda(int id, Produto produto, Venda venda, int quantidade, Date dataCadastro, Date dataAtualizacao, Float valor) {
 		super();
 		Id = id;
 		Produto = produto;
@@ -90,24 +101,27 @@ public class ItemVenda implements Serializable {
 		Quantidade = quantidade;
 		DataCadastro = dataCadastro;
 		DataAtualizacao = dataAtualizacao;
+		Valor = valor;
 	}
 
-	public ItemVenda(Produto produto, Venda venda, int quantidade, Date dataCadastro, Date dataAtualizacao) {
+	public ItemVenda(Produto produto, Venda venda, int quantidade, Date dataCadastro, Date dataAtualizacao, Float valor) {
 		super();
 		Produto = produto;
 		Venda = venda;
 		Quantidade = quantidade;
 		DataCadastro = dataCadastro;
 		DataAtualizacao = dataAtualizacao;
+		Valor = valor;
 	}
 
-	public ItemVenda(Produto produto, int quantidade, Date dataCadastro, Date dataAtualizacao) {
+	public ItemVenda(Produto produto, int quantidade, Date dataCadastro, Date dataAtualizacao, Float valor) {
 		super();
 		Venda = null;
 		Produto = produto;
 		Quantidade = quantidade;
 		DataCadastro = dataCadastro;
 		DataAtualizacao = dataAtualizacao;
+		Valor = valor;
 	}
 
 	@Override
@@ -133,5 +147,19 @@ public class ItemVenda implements Serializable {
 				this.getProduto().getPreco(), this.getProduto().getCodigoBarras());
 	}
 
+	public RelatorioAnaliticoViewModel ConvertToRelatorioAnaliticoViewModel() {
+		return new RelatorioAnaliticoViewModel(
+				this.getVenda().getId(), 
+				this.getProduto().getId(), 
+				this.getQuantidade(),
+				this.getValor(),
+				this.getProduto().getNome());
+	}
 	
+	public ProdutoQuantidade ToProdutoQuantidade() {
+		return new ProdutoQuantidade(
+					this.getProduto(),
+					this.getQuantidade()
+				);
+	}
 }
