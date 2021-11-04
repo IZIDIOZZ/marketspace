@@ -41,7 +41,7 @@ public class ProdutoQuantidade {
 		
 		public static void AdicionaQuantidadeVendidaProduto(List<ProdutoQuantidade> lista, ItemVenda itemVenda) {
 			for(ProdutoQuantidade item: lista) {
-				if(item.getProduto().getId() == item.getProduto().getId()) {
+				if(item.getProduto().getId() == itemVenda.getProduto().getId()) {
 					item.setQuantidadeVendida(item.getQuantidadeVendida()+itemVenda.getQuantidade());
 					return;
 				}

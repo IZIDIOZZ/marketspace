@@ -44,7 +44,7 @@ public class LoginController {
 	@FXML
 	public void LogarEvent(ActionEvent event) throws IOException {
 		
-		Usuario usuario = _authService.Logar("123","123");
+		Usuario usuario = _authService.Logar(txtUsuario.getText(), txtSenha.getText());
 		if (usuario.getLogin() != null) {
 			new Navigation().NavigateTo(event, "/com/marketspace/application/views/MenuView.fxml"); 
 		} else
