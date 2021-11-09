@@ -162,7 +162,7 @@ public class CaixaController extends Navigation {
 			LimparFormulario();
 		}
 		else
-			new DialogMessage("Ocorreu um processar a venda.", "Não foi possível concluir a venda", AlertType.WARNING).Show();
+			new DialogMessage("Ocorreu um erro ao processar a venda.", "Não foi possível concluir a venda", AlertType.WARNING).Show();
 	}
 	
 	
@@ -321,7 +321,7 @@ public class CaixaController extends Navigation {
 			
 			return true;
 		} catch (IllegalArgumentException e) {
-			new DialogMessage("Campos inválidos no cadastro de produto", e.getMessage(), AlertType.WARNING).Show();
+			new DialogMessage("Campos inválidos", e.getMessage(), AlertType.WARNING).Show();
 			return false;
 		}
 	}
