@@ -143,7 +143,7 @@ public class ItemVenda implements Serializable {
 	}
 
 	public ItemVendaViewModel ConvertTo() {
-		return new ItemVendaViewModel(this.getId(), this.getProduto().getNome(), this.getQuantidade(),
+		return new ItemVendaViewModel(this.getProduto().getId(), this.getProduto().getNome(), this.getQuantidade(),
 				this.getProduto().getPreco(), this.getProduto().getCodigoBarras());
 	}
 
