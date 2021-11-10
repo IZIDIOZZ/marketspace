@@ -124,8 +124,17 @@ public class CaixaController extends Navigation {
 		if (ItemJaFoiAdicionado())
 			AdicionarUmaUnidadeNoProduto(txtCodigoBarrasProduto.getText());
 		else {
-			itensVenda.add(new ItemVenda(prod, venda, 1, new Date(), new Date(), prod.getPreco()));
+			itensVenda.add(new ItemVenda(prod.getId(), 
+										 venda, 
+										 1, 
+										 new Date(), 
+										 new Date(), 
+										 prod.getPreco(),
+										 prod.getNome(),
+										 prod.getCodigoBarras()
+										 ));
 			venda.CalcularTotalVenda();
+			
 		}
 		AtualizarTela();
 	}
@@ -202,7 +211,7 @@ public class CaixaController extends Navigation {
 
 	public boolean ItemJaFoiAdicionado() {
 		for (ItemVenda iv : itensVenda) {
-			if (iv.getProduto().getCodigoBarras().equals(txtCodigoBarrasProduto.getText())) {
+			if (iv.getCodigoBarras().equals(txtCodigoBarrasProduto.getText())) {
 				return true;
 			}
 		}
@@ -211,7 +220,7 @@ public class CaixaController extends Navigation {
 
 	private void AdicionarUmaUnidadeNoProduto(String codigoBarras) {
 		for (ItemVenda iv : itensVenda) {
-			if (iv.getProduto().getCodigoBarras().equals(codigoBarras)) {
+			if (iv.getCodigoBarras().equals(codigoBarras)) {
 				iv.AdicionarUmaUnidadeAoItem();
 				break;
 			}
@@ -220,7 +229,7 @@ public class CaixaController extends Navigation {
 
 	private void RemoverUmaUnidadeNoProduto(String codigoBarras) {
 		for (ItemVenda iv : itensVenda) {
-			if (iv.getProduto().getCodigoBarras().equals(codigoBarras)) {
+			if (iv.getCodigoBarras().equals(codigoBarras)) {
 				iv.RemoverUmaUnidadeAoItem();
 				break;
 			}

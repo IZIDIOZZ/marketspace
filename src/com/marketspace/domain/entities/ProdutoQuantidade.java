@@ -30,9 +30,9 @@ public class ProdutoQuantidade {
 			QuantidadeVendida = quantidadeVendida;
 		}
 		
-		public static boolean ProdutoJaEstahNaColecao(List<ProdutoQuantidade> lista, Produto produto) {
+		public static boolean ProdutoJaEstahNaColecao(List<ProdutoQuantidade> lista, int produtoId) {
 			for(ProdutoQuantidade item: lista) {
-				if(item.getProduto().getId() == produto.getId()) {
+				if(item.getProduto().getId() == produtoId) {
 					return true;
 				}
 			}
@@ -41,7 +41,7 @@ public class ProdutoQuantidade {
 		
 		public static void AdicionaQuantidadeVendidaProduto(List<ProdutoQuantidade> lista, ItemVenda itemVenda) {
 			for(ProdutoQuantidade item: lista) {
-				if(item.getProduto().getId() == itemVenda.getProduto().getId()) {
+				if(item.getProduto().getId() == itemVenda.getProdutoId()) {
 					item.setQuantidadeVendida(item.getQuantidadeVendida()+itemVenda.getQuantidade());
 					return;
 				}

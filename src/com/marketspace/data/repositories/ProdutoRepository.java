@@ -27,7 +27,7 @@ public class ProdutoRepository {
 			_entityManager.getTransaction().commit();
 		}
 	}
-
+	
 	public boolean InserirProduto(Produto produto) {
 		try {
 			_entityManager.getTransaction().begin();

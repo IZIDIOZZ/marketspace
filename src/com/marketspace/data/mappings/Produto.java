@@ -114,6 +114,14 @@ public class Produto implements Serializable {
 		DataAtualizacao = dataAtualizacao;
 	}
 	
+	public Produto(int id, String nome, String codigoBarras, Float preco) {
+		super();
+		Id = id;
+		Nome = nome;
+		CodigoBarras = codigoBarras;
+		Preco = preco;
+	}
+	
 	public ItemVendaViewModel CreateItemVenda() {
 		return new ItemVendaViewModel(
 					this.getId(),

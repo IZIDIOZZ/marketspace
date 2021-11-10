@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 import com.marketspace.domain.entities.ProdutoQuantidade;
 import com.marketspace.domain.viewModels.ItemVendaViewModel;
@@ -26,28 +25,21 @@ public class ItemVenda implements Serializable {
 	private Date DataCadastro;
 	private Date DataAtualizacao;
 
-	@OneToOne(fetch = FetchType.EAGER)
-	private Produto Produto;
+	private int ProdutoId;
+	private String Nome;
+	private String CodigoBarras;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Venda Venda;
 
 	private Float Valor;
-	
+
 	public int getId() {
 		return Id;
 	}
 
 	public void setId(int id) {
 		Id = id;
-	}
-
-	public Produto getProduto() {
-		return Produto;
-	}
-
-	public void setProduto(Produto produto) {
-		Produto = produto;
 	}
 
 	public Venda getVenda() {
@@ -81,7 +73,7 @@ public class ItemVenda implements Serializable {
 	public void setDataAtualizacao(Date dataAtualizacao) {
 		DataAtualizacao = dataAtualizacao;
 	}
-	
+
 	public Float getValor() {
 		return Valor;
 	}
@@ -93,43 +85,69 @@ public class ItemVenda implements Serializable {
 	public ItemVenda() {
 	}
 
-	public ItemVenda(int id, Produto produto, Venda venda, int quantidade, Date dataCadastro, Date dataAtualizacao, Float valor) {
+	public int getProdutoId() {
+		return ProdutoId;
+	}
+
+	public void setProdutoId(int produtoId) {
+		ProdutoId = produtoId;
+	}
+
+	public String getNome() {
+		return Nome;
+	}
+
+	public void setNome(String nome) {
+		Nome = nome;
+	}
+
+	public String getCodigoBarras() {
+		return CodigoBarras;
+	}
+
+	public void setCodigoBarras(String codigoBarras) {
+		CodigoBarras = codigoBarras;
+	}
+
+	public ItemVenda(int id, int produtoId, Venda venda, int quantidade, Date dataCadastro, Date dataAtualizacao,
+			Float valor, String nome, String codigoBarras) {
 		super();
 		Id = id;
-		Produto = produto;
+		ProdutoId = produtoId;
 		Venda = venda;
 		Quantidade = quantidade;
 		DataCadastro = dataCadastro;
 		DataAtualizacao = dataAtualizacao;
 		Valor = valor;
+		Nome = nome;
+		CodigoBarras = codigoBarras;
+
 	}
 
-	public ItemVenda(Produto produto, Venda venda, int quantidade, Date dataCadastro, Date dataAtualizacao, Float valor) {
+	public ItemVenda(int produtoId, Venda venda, int quantidade, Date dataCadastro, Date dataAtualizacao, Float valor,
+			String nome, String codigoBarras) {
 		super();
-		Produto = produto;
+		ProdutoId = produtoId;
 		Venda = venda;
 		Quantidade = quantidade;
 		DataCadastro = dataCadastro;
 		DataAtualizacao = dataAtualizacao;
 		Valor = valor;
+		Nome = nome;
+		CodigoBarras = codigoBarras;
 	}
 
-	public ItemVenda(Produto produto, int quantidade, Date dataCadastro, Date dataAtualizacao, Float valor) {
+	public ItemVenda(int produtoId, int quantidade, Date dataCadastro, Date dataAtualizacao, Float valor, String nome,
+			String codigoBarras) {
 		super();
 		Venda = null;
-		Produto = produto;
+		ProdutoId = produtoId;
 		Quantidade = quantidade;
 		DataCadastro = dataCadastro;
 		DataAtualizacao = dataAtualizacao;
 		Valor = valor;
-	}
-
-	@Override
-	public String toString() {
-		return "ItemVenda [Id=" + Id + ", " + (Produto != null ? "Produto=" + Produto + ", " : "")
-				+ (Venda != null ? "Venda=" + Venda + ", " : "") + "Quantidade=" + Quantidade + ", "
-				+ (DataCadastro != null ? "DataCadastro=" + DataCadastro + ", " : "")
-				+ (DataAtualizacao != null ? "DataAtualizacao=" + DataAtualizacao : "") + "]";
+		Nome = nome;
+		CodigoBarras = codigoBarras;
 	}
 
 	public void AdicionarUmaUnidadeAoItem() {
@@ -143,23 +161,18 @@ public class ItemVenda implements Serializable {
 	}
 
 	public ItemVendaViewModel ConvertTo() {
-		return new ItemVendaViewModel(this.getProduto().getId(), this.getProduto().getNome(), this.getQuantidade(),
-				this.getProduto().getPreco(), this.getProduto().getCodigoBarras());
+		return new ItemVendaViewModel(this.getProdutoId(), this.getNome(), this.getQuantidade(), this.getValor(),
+				this.getCodigoBarras());
 	}
 
 	public RelatorioAnaliticoViewModel ConvertToRelatorioAnaliticoViewModel() {
-		return new RelatorioAnaliticoViewModel(
-				this.getVenda().getId(), 
-				this.getProduto().getId(), 
-				this.getQuantidade(),
-				this.getValor(),
-				this.getProduto().getNome());
+		return new RelatorioAnaliticoViewModel(this.getVenda().getId(), this.getProdutoId(), this.getQuantidade(),
+				this.getValor(), this.getNome());
 	}
-	
+
 	public ProdutoQuantidade ToProdutoQuantidade() {
 		return new ProdutoQuantidade(
-					this.getProduto(),
-					this.getQuantidade()
-				);
+				new Produto(this.getProdutoId(), this.getNome(), this.getCodigoBarras(), this.getValor()),
+				this.getQuantidade());
 	}
 }

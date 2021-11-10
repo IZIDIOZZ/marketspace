@@ -15,7 +15,6 @@ import com.marketspace.data.mappings.Pessoa;
 import com.marketspace.data.mappings.TipoPessoa;
 import com.marketspace.domain.enums.TipoPessoaEnum;
 import com.marketspace.domain.enums.TipoRespostaBotaoEnum;
-import com.marketspace.domain.validators.BasicValidator;
 import com.marketspace.domain.validators.CNPJValidator;
 import com.marketspace.domain.validators.CPFValidator;
 import com.marketspace.domain.validators.InputValidator;

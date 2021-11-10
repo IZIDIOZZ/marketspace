@@ -118,7 +118,7 @@ public class Venda {
 	public void CalcularTotalVenda() {
 		float totalVenda = 0F;
 		for (ItemVenda iv : this.getItensVenda()) {
-			totalVenda += (iv.getQuantidade() * iv.getProduto().getPreco());
+			totalVenda += (iv.getQuantidade() * iv.getValor());
 		}
 		this.setValorTotal(totalVenda);
 	}
@@ -134,7 +134,7 @@ public class Venda {
 
 	public void RemoverItemVenda(String codigoBarras) {
 		for (int i = 0; i < this.getItensVenda().size(); i++) {
-			if (this.getItensVenda().get(i).getProduto().getCodigoBarras().equals(codigoBarras)) {
+			if (this.getItensVenda().get(i).getCodigoBarras().equals(codigoBarras)) {
 				this.getItensVenda().remove(i);
 			}
 		}

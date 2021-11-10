@@ -2,9 +2,7 @@ package com.marketspace.application.controllers;
 
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.marketspace.application.helpers.DialogMessage;
@@ -126,7 +124,7 @@ public class RelatorioAnaliticoController extends Navigation {
 		List<ProdutoQuantidade> produtos = new ArrayList<ProdutoQuantidade>();
 		for(ItemVenda item: vendasItens) {
 			
-			if(!ProdutoQuantidade.ProdutoJaEstahNaColecao(produtos,item.getProduto())) {
+			if(!ProdutoQuantidade.ProdutoJaEstahNaColecao(produtos,item.getProdutoId())) {
 				produtos.add(item.ToProdutoQuantidade());
 			}
 			else {

@@ -61,3 +61,8 @@
 	-fx-font-weight: bold;
 }
 
+.table-view .table-cell{
+    -fx-font-size:15px;      
+
+}
+
