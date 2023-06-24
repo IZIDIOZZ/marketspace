@@ -48,6 +48,6 @@ public class LoginController {
 		if (usuario.getLogin() != null) {
 			new Navigation().NavigateTo(event, "/com/marketspace/application/views/MenuView.fxml"); 
 		} else
-		  new DialogMessage("Usu·rio ou Senha est„o incorretos", "Tente Novamente", AlertType.WARNING).Show();
+		  new DialogMessage("Usu√°rio ou Senha est√£o incorretos", "Tente Novamente", AlertType.WARNING).Show();
 	}
 }

@@ -180,7 +180,7 @@ public class CadastroPessoaController extends Navigation {
 	void RemoverEnderecoGridEnderecoEvent(ActionEvent event) {
 		
 		if(grdEndereco.getItems().isEmpty()) {
-			new DialogMessage("N„o h· enderecos para remover", "Pessoa sem endereÁo cadastrado.",
+			new DialogMessage("N√£o h√° enderecos para remover", "Pessoa sem endere√ßo cadastrado.",
 					AlertType.WARNING).Show();
 			return;
 		}
@@ -220,7 +220,7 @@ public class CadastroPessoaController extends Navigation {
 					.Show();
 			LimparFormulario();
 		} else {
-			new DialogMessage("Ocorreu um erro ao atualizar a pessoa.", "N„o foi possÌvel atualizar a pessoa",
+			new DialogMessage("Ocorreu um erro ao atualizar a pessoa.", "N√£o foi poss√≠vel atualizar a pessoa",
 					AlertType.WARNING).Show();
 		}
 	}
@@ -229,7 +229,7 @@ public class CadastroPessoaController extends Navigation {
 	void RemoverPessoaEvent(ActionEvent event) {
 
 		Optional<ButtonType> reposta = new DialogMessage("Deseja realmente remover esta pessoa?",
-				"Ao Aceitar, vocÍ estar· removendo todos os registros relacionados com essa pessoa.",
+				"Ao Aceitar, voc√™ estar√° removendo todos os registros relacionados com essa pessoa.",
 				AlertType.CONFIRMATION, TipoRespostaBotaoEnum.YesOrNo).Show();
 
 		if (reposta.get() == ButtonType.OK) {
@@ -238,7 +238,7 @@ public class CadastroPessoaController extends Navigation {
 						AlertType.INFORMATION).Show();
 				LimparFormulario();
 			} else {
-				new DialogMessage("Ocorreu um erro ao remover esta pessoa.", "N„o foi possÌvel remover a pessoa",
+				new DialogMessage("Ocorreu um erro ao remover esta pessoa.", "N√£o foi poss√≠vel remover a pessoa",
 						AlertType.WARNING).Show();
 			}
 		}
@@ -273,8 +273,8 @@ public class CadastroPessoaController extends Navigation {
 	public void PesquisarPessoaPorId(int Id) {
 		_pessoa = _pessoaService.PesquisarPessoaPorId(Id);
 		if (_pessoa == null) {
-			new DialogMessage("Usu·rio n„o encontrado",
-					"Nenhum usu·rio com o id " + txtCodigoPessoa.getText() + " foi encontrado", AlertType.WARNING)
+			new DialogMessage("Usu√°rio n√£o encontrado",
+					"Nenhum usu√°rio com o id " + txtCodigoPessoa.getText() + " foi encontrado", AlertType.WARNING)
 							.Show();
 			return;
 		}
@@ -496,17 +496,17 @@ public class CadastroPessoaController extends Navigation {
 
 		try {
 			if (!CamposParaCadastroEstaoPrenchidos())
-				throw new IllegalArgumentException("Um ou mais Campos n„o est„o preenchidos");
+				throw new IllegalArgumentException("Um ou mais Campos n√£o est√£o preenchidos");
 
 			if (!(EhPessoaFisica() ? CPFValidator.isCPF(txtCPF.getText()) : CNPJValidator.isCNPJ(txtCNPJ.getText())))
-				throw new IllegalArgumentException("Insira um " + documento + " v·lido");
+				throw new IllegalArgumentException("Insira um " + documento + " v√°lido");
 
 			if (grdEndereco.getItems().size() == 0)
-				throw new IllegalArgumentException("Insira no mÌnimo um Endereco");
+				throw new IllegalArgumentException("Insira no m√≠nimo um Endereco");
 			
 			return true;
 		} catch (IllegalArgumentException e) {
-			new DialogMessage("Campos inv·lidos no Cadastro", e.getMessage(), AlertType.WARNING).Show();
+			new DialogMessage("Campos inv√°lidos no Cadastro", e.getMessage(), AlertType.WARNING).Show();
 			return false;
 		}
 	}
@@ -514,11 +514,11 @@ public class CadastroPessoaController extends Navigation {
 	public boolean ValidarEndereco() {
 		try {
 			if (!CamposParaCadastroDeEnderecoEstaoPrenchidos())
-				throw new IllegalArgumentException("Um ou mais campos para o cadastro do endereÁo n„o est„o preenchidos.");
+				throw new IllegalArgumentException("Um ou mais campos para o cadastro do endere√ßo n√£o est√£o preenchidos.");
 			
 			return true;
 		} catch (IllegalArgumentException e) {
-			new DialogMessage("Campos inv·lidos no cadastro do endereÁo", e.getMessage(), AlertType.WARNING).Show();
+			new DialogMessage("Campos inv√°lidos no cadastro do endere√ßo", e.getMessage(), AlertType.WARNING).Show();
 			return false;
 		}
 	}

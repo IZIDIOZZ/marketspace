@@ -39,7 +39,7 @@ public class RelatorioAnaliticoController extends Navigation {
     private DatePicker dtpFinal;
 
     @FXML
-    private Button btnGerarRelatórioAnalítico;
+    private Button btnGerarRelatorioAnalatico;
 
     @FXML
     private Button btnNovoRelatorio;
@@ -89,7 +89,7 @@ public class RelatorioAnaliticoController extends Navigation {
     																		  DateHelper.LocalDateToDate(dtpFinal.getValue()));
     	if(vendasItens.isEmpty()) {
     		LimparFormulario();
-    		new DialogMessage("Nenhum Resultado Encontrado", "Nenhuma Venda Encontrada no Período", AlertType.WARNING).Show();
+    		new DialogMessage("Nenhum Resultado Encontrado", "Nenhuma Venda Encontrada no PerÃ­odo", AlertType.WARNING).Show();
     		return;
     	}
     	
@@ -154,11 +154,11 @@ public class RelatorioAnaliticoController extends Navigation {
 		try {
 
 			if (dtpInicial.getValue().isAfter(dtpFinal.getValue()))
-				throw new IllegalArgumentException("Data inicial não pode ser maior que a data final.");
+				throw new IllegalArgumentException("Data inicial nÃ£o pode ser maior que a data final.");
 			
 			return true;
 		} catch (IllegalArgumentException e) {
-			new DialogMessage("Entradas Inválidas", e.getMessage(), AlertType.WARNING).Show();
+			new DialogMessage("Entradas InvÃ¡lidas", e.getMessage(), AlertType.WARNING).Show();
 			return false;
 		}
 	}
@@ -202,7 +202,7 @@ public class RelatorioAnaliticoController extends Navigation {
 	
 	public void HabilitarBotaoNovoRelatorio(boolean habilita) {
 		btnNovoRelatorio.setDisable(!habilita);
-		btnGerarRelatórioAnalítico.setDisable(habilita);
+		btnGerarRelatorioAnalatico.setDisable(habilita);
 	}
 }
 

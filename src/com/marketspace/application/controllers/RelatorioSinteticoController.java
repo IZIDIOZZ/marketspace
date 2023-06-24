@@ -80,14 +80,14 @@ public class RelatorioSinteticoController extends Navigation {
     }
     
     @FXML
-    void GerarRelatorioAnalÌticoEvent(ActionEvent event) {
+    void GerarRelatorioSinteticoEvent(ActionEvent event) {
     	if(!EntradasFormularioSaoValidas()) return;
     	List<Venda> vendas = _vendaService.BuscarVendasResumidas(LocalDateToDate(dtpInicial.getValue()),
     																  LocalDateToDate(dtpFinal.getValue()));
     	
     	if(vendas.isEmpty()) {
     		LimparFormulario();
-    		new DialogMessage("Nenhum Resultado Encontrado", "Nenhuma Venda Encontrada no PerÌodo", AlertType.WARNING).Show();
+    		new DialogMessage("Nenhum Resultado Encontrado", "Nenhuma Venda Encontrada no Per√≠odo", AlertType.WARNING).Show();
     		return;
     	}
     	
@@ -138,11 +138,11 @@ public class RelatorioSinteticoController extends Navigation {
 		try {
 
 			if (dtpInicial.getValue().isAfter(dtpFinal.getValue()))
-				throw new IllegalArgumentException("Data inicial n„o pode ser maior que a data final.");
+				throw new IllegalArgumentException("Data inicial n√£o pode ser maior que a data final.");
 			
 			return true;
 		} catch (IllegalArgumentException e) {
-			new DialogMessage("Entradas Inv·lidas", e.getMessage(), AlertType.WARNING).Show();
+			new DialogMessage("Entradas Inv√°lidas", e.getMessage(), AlertType.WARNING).Show();
 			return false;
 		}
 	}

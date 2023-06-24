@@ -126,7 +126,7 @@ public class CadastroProdutoController extends Navigation {
 	void AtualizarProdutoEvent(ActionEvent event) {
 		
 		if (_produtoService.CodigoDeBarrasJaExiste(txtCodigoBarras.getText(),Integer.valueOf(txtCodigoProduto.getText()))) {
-			new DialogMessage("O CÛdigo de barras j· foi cadastrado.", "CÛdigo de Barras j· cadastro.", AlertType.WARNING).Show();
+			new DialogMessage("O C√≥digo de barras j√° foi cadastrado.", "C√≥digo de Barras j√° cadastro.", AlertType.WARNING).Show();
 			return;
 		}
 		
@@ -144,7 +144,7 @@ public class CadastroProdutoController extends Navigation {
 	void CadastrarProdutoEvent(ActionEvent event) {
 		
 		if (_produtoService.CodigoDeBarrasJaExiste(txtCodigoBarras.getText())) {
-			new DialogMessage("O CÛdigo de barras j· foi cadastrado.", "CÛdigo de Barras j· cadastro.", AlertType.WARNING).Show();
+			new DialogMessage("O C√≥digo de barras j√° foi cadastrado.", "C√≥digo de Barras j√° cadastro.", AlertType.WARNING).Show();
 			return;
 		}
 		
@@ -152,12 +152,12 @@ public class CadastroProdutoController extends Navigation {
 			return;
 		
 		if (_produtoService.InserirProduto(CriarProdutoAtravesDeFormulario())){
-			new DialogMessage("Produto inserido com sucesso.", "Sucesso na inserÁ„o", AlertType.INFORMATION).Show();
+			new DialogMessage("Produto inserido com sucesso.", "Sucesso na inser√ß√£o", AlertType.INFORMATION).Show();
 			LimparFormulario();
 			DefinirPesquisaVisualizacao();
 		}
 		else
-			new DialogMessage("Falha na inserÁ„o do produto.", "Falha na inserÁ„o", AlertType.WARNING).Show();
+			new DialogMessage("Falha na inser√ß√£o do produto.", "Falha na inser√ß√£o", AlertType.WARNING).Show();
 	}
 
 	@FXML
@@ -182,7 +182,7 @@ public class CadastroProdutoController extends Navigation {
 		Produto produto = _produtoService.PesquisarProdutoPorId(Integer.valueOf(txtCodigoProduto.getText()));
 		if (produto == null) {
 			new DialogMessage("Nenhum produto com o id " + txtCodigoProduto.getText() + " encontrado.",
-					"Produto N„o Encontrado", AlertType.WARNING).Show();
+					"Produto N√£o Encontrado", AlertType.WARNING).Show();
 			return;
 		}
 		PreencherFormulario(produto);
@@ -193,13 +193,13 @@ public class CadastroProdutoController extends Navigation {
 	@FXML
 	void RemoverProdutoEvent(ActionEvent event) {
 		if (BasicValidator.IsnullOrEmpty(txtCodigoProduto.getText())) {
-			new DialogMessage("Pesquise o produto que deseja para remover.", "Nenhum produto selecionado para remoÁ„o.",
+			new DialogMessage("Pesquise o produto que deseja para remover.", "Nenhum produto selecionado para remo√ß√£o.",
 					AlertType.WARNING).Show();
 			return;
 		}
 
 		Optional<ButtonType> reposta = new DialogMessage("Deseja realmente remover este produto?",
-				"Ao Aceitar, vocÍ estar· removendo permanentemente este produto.", AlertType.CONFIRMATION,
+				"Ao Aceitar, voc√™ estar√° removendo permanentemente este produto.", AlertType.CONFIRMATION,
 				TipoRespostaBotaoEnum.YesOrNo).Show();
 
 		if (reposta.get() == ButtonType.OK) {
@@ -210,7 +210,7 @@ public class CadastroProdutoController extends Navigation {
 				DefinirPadraoVisualizacao();
 			} 
 			else
-				new DialogMessage("Ocorreu um erro ao remover este produto.", "N„o foi possÌvel remover o produto.", AlertType.WARNING).Show();
+				new DialogMessage("Ocorreu um erro ao remover este produto.", "N√£o foi poss√≠vel remover o produto.", AlertType.WARNING).Show();
 		}
 
 	}
@@ -256,14 +256,14 @@ public class CadastroProdutoController extends Navigation {
 			if (BasicValidator.IsnullOrEmpty(txtCodigoBarras.getText())
 					|| BasicValidator.IsnullOrEmpty(txtNome.getText())
 					|| BasicValidator.IsnullOrEmpty(txtPreco.getText()))
-				throw new IllegalArgumentException("Um ou mais campos n„o foram preenchidos.");
+				throw new IllegalArgumentException("Um ou mais campos n√£o foram preenchidos.");
 
 			if (Float.valueOf(txtPreco.getText()) == 0F)
-				throw new IllegalArgumentException("Valor do produto n„o pode ser 0.");
+				throw new IllegalArgumentException("Valor do produto n√£o pode ser 0.");
 		
 			return true;
 		} catch (IllegalArgumentException e) {
-			new DialogMessage("Campos inv·lidos no cadastro de produto", e.getMessage(), AlertType.WARNING).Show();
+			new DialogMessage("Campos inv√°lidos no cadastro de produto", e.getMessage(), AlertType.WARNING).Show();
 			return false;
 		}
 	}

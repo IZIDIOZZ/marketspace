@@ -140,7 +140,7 @@ public class CadastroUsuarioController extends Navigation{
 		if (_usuarioService.AtualizarUsuario(AtualizarUsuarioAtravesDoFormulario(usuario)))
 			new DialogMessage("Usuario Atualizado com sucesso", "Sucesso ao Atualizar", AlertType.INFORMATION).Show();
 		else
-			new DialogMessage("Ocorreu um erro ao atualizar o usu·rio.", "Falha ao Atualizar", AlertType.ERROR).Show();
+			new DialogMessage("Ocorreu um erro ao atualizar o usu√°rio.", "Falha ao Atualizar", AlertType.ERROR).Show();
 		DefinirPadraoVisualizacao();
 	}
 
@@ -155,9 +155,9 @@ public class CadastroUsuarioController extends Navigation{
 		if (!ValidarFormulario())
 			return;
 		if (_usuarioService.InserirUsuario(CriarUsuarioAtravesDoFormulario()))
-			new DialogMessage("Usu·rio inserido com sucesso.", "Sucesso na inserÁ„o", AlertType.INFORMATION).Show();
+			new DialogMessage("Usu√°rio inserido com sucesso.", "Sucesso na inser√ß√£o", AlertType.INFORMATION).Show();
 		else
-			new DialogMessage("Falha na inserÁ„o do usu·rio.", "Falha na inserÁ„o", AlertType.WARNING).Show();
+			new DialogMessage("Falha na inser√ß√£o do usu√°rio.", "Falha na inser√ß√£o", AlertType.WARNING).Show();
 
 		DefinirPadraoVisualizacao();
 	}
@@ -170,15 +170,15 @@ public class CadastroUsuarioController extends Navigation{
 	@FXML
 	void PesquisarUsuarioPorIdEnvent(ActionEvent event) {
 		if (BasicValidator.IsnullOrEmpty(txtCodigoUsuario.getText())) {
-			new DialogMessage("Insira um Id para pesquisar um usu·rio.", "Campo de cÛdigo vazio.", AlertType.WARNING)
+			new DialogMessage("Insira um Id para pesquisar um usu√°rio.", "Campo de c√≥digo vazio.", AlertType.WARNING)
 					.Show();
 			return;
 		}
 
 		Usuario usuario = _usuarioService.PesquisarUsuario(Integer.parseInt(txtCodigoUsuario.getText()));
 		if (usuario == null) {
-			new DialogMessage("Nenhum usu·rio com id " + txtCodigoUsuario.getText() + " foi encontrado.",
-					"Usu·rio n„o encontrado", AlertType.WARNING).Show();
+			new DialogMessage("Nenhum usu√°rio com id " + txtCodigoUsuario.getText() + " foi encontrado.",
+					"Usu√°rio n√£o encontrado", AlertType.WARNING).Show();
 			return;
 		}
 		DefinirPesquisaVisualizacao();
@@ -194,21 +194,21 @@ public class CadastroUsuarioController extends Navigation{
 	@FXML
 	void RemoverUsuarioEvent(ActionEvent event) {
 		if (BasicValidator.IsnullOrEmpty(txtCodigoUsuario.getText())) {
-			new DialogMessage("Pesquise o usu·rio que deseja para remover.", "Nenhum usu·rio selecionado para remoÁ„o.",
+			new DialogMessage("Pesquise o usu√°rio que deseja para remover.", "Nenhum usu√°rio selecionado para remo√ß√£o.",
 					AlertType.WARNING).Show();
 			return;
 		}
 
-		Optional<ButtonType> reposta = new DialogMessage("Deseja realmente remover este usu·rio?",
-				"Ao Aceitar, vocÍ estar· removendo permanentemente este usu·rio.", AlertType.CONFIRMATION,
+		Optional<ButtonType> reposta = new DialogMessage("Deseja realmente remover este usu√°rio?",
+				"Ao Aceitar, voc√™ estar√° removendo permanentemente este usu√°rio.", AlertType.CONFIRMATION,
 				TipoRespostaBotaoEnum.YesOrNo).Show();
 
 		if (reposta.get() == ButtonType.OK) {
 			if (_usuarioService.RemoverUsuario(Integer.parseInt(txtCodigoUsuario.getText()))) {
-				new DialogMessage("Usu·rio removido com sucesso", "Todos os dados deste usu·rio foram removidos.",
+				new DialogMessage("Usu√°rio removido com sucesso", "Todos os dados deste usu√°rio foram removidos.",
 						AlertType.INFORMATION).Show();
 			} else {
-				new DialogMessage("Ocorreu um erro ao remover este usu·rio.", "N„o foi possÌvel remover o usu·rio",
+				new DialogMessage("Ocorreu um erro ao remover este usu√°rio.", "n√£o foi poss√≠vel remover o usu√°rio",
 						AlertType.WARNING).Show();
 			}
 		}
@@ -286,22 +286,22 @@ public class CadastroUsuarioController extends Navigation{
 	public boolean ValidarFormulario() {
 		try {
 			if (!txtSenha.getText().equals(txtConfirmarSenha.getText()))
-				throw new IllegalArgumentException("As Senhas n„o coincidem.");
+				throw new IllegalArgumentException("As Senhas n√£o coincidem.");
 
 			if (BasicValidator.IsnullOrEmpty(txtCodigoPessoa.getText()))
-				throw new IllegalArgumentException("Selecione uma pessoa para este usu·rio.");
+				throw new IllegalArgumentException("Selecione uma pessoa para este usu√°rio.");
 
 			if (cboTipoUsuario.getSelectionModel().getSelectedItem() == null)
-				throw new IllegalArgumentException("Insira um nivel de usu·rio.");
+				throw new IllegalArgumentException("Insira um nivel de usu√°rio.");
 
 			if (BasicValidator.IsnullOrEmpty(txtSenha.getText()) 
 					|| BasicValidator.IsnullOrEmpty(txtConfirmarSenha.getText())
 					|| BasicValidator.IsnullOrEmpty(txtUsuario.getText()))
-				throw new IllegalArgumentException("Um ou mais campos n„o foram preenchidos");
+				throw new IllegalArgumentException("Um ou mais campos n√£o foram preenchidos");
 
 			return true;
 		} catch (IllegalArgumentException e) {
-			new DialogMessage("Campos inv·lidos no Cadastro", e.getMessage(), AlertType.WARNING).Show();
+			new DialogMessage("Campos inv√°lidos no Cadastro", e.getMessage(), AlertType.WARNING).Show();
 			return false;
 		}
 	}

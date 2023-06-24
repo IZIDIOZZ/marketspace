@@ -1,7 +1,7 @@
 package com.marketspace.domain.enums;
 
 public enum TipoPessoaEnum {
-	Fisica("Física"), Juridica("Juridica");
+	Fisica("Fisica"), Juridica("Juridica");
 
 	String TipoPessoa;
 

@@ -60,6 +60,6 @@ public class DialogMessage {
 	
 	private void SetDialogSimOuNao(Alert dialog) {
 		((Button) dialog.getDialogPane().lookupButton(ButtonType.OK)).setText("Sim");
-		((Button) dialog.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("Não");
+		((Button) dialog.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("NÃ£o");
 	}
 }	

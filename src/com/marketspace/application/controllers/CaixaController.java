@@ -116,7 +116,7 @@ public class CaixaController extends Navigation {
 
 		Produto prod = _produtoService.PesquisarProdutoPorCodigoDeBarras(txtCodigoBarrasProduto.getText());
 		if (prod == null) {
-			new DialogMessage("Nenhum produto com este código de barras foi encontrado", "Código de barras inexistente",
+			new DialogMessage("Nenhum produto com este cÃ³digo de barras foi encontrado", "CÃ³digo de barras inexistente",
 					AlertType.WARNING).Show();
 			return;
 		}
@@ -171,7 +171,7 @@ public class CaixaController extends Navigation {
 			LimparFormulario();
 		}
 		else
-			new DialogMessage("Ocorreu um erro ao processar a venda.", "Não foi possível concluir a venda", AlertType.WARNING).Show();
+			new DialogMessage("Ocorreu um erro ao processar a venda.", "nÃ£o foi possÃ­vel concluir a venda", AlertType.WARNING).Show();
 	}
 	
 	
@@ -325,12 +325,12 @@ public class CaixaController extends Navigation {
 			
 			if(!BasicValidator.IsnullOrEmpty(txtCpfCliente.getText())) {
 				if (!CPFValidator.isCPF(txtCpfCliente.getText()))
-					throw new IllegalArgumentException("CPF do cliente inválido.");
+					throw new IllegalArgumentException("CPF do cliente invÃ¡lido.");
 			}
 			
 			return true;
 		} catch (IllegalArgumentException e) {
-			new DialogMessage("Campos inválidos", e.getMessage(), AlertType.WARNING).Show();
+			new DialogMessage("Campos invÃ¡lidos", e.getMessage(), AlertType.WARNING).Show();
 			return false;
 		}
 	}

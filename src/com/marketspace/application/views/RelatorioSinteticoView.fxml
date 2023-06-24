@@ -54,7 +54,7 @@
             </VBox>
             <VBox alignment="BOTTOM_LEFT" prefHeight="52.0" prefWidth="238.0" spacing="5.0" HBox.hgrow="NEVER">
                <children>
-                  <Button fx:id="btnGerarRelatorioSintetico" alignment="CENTER" contentDisplay="BOTTOM" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#GerarRelatorioAnalíticoEvent" prefHeight="31.0" prefWidth="238.0" text="Gerar Relatório">
+                  <Button fx:id="btnGerarRelatorioSintetico" alignment="CENTER" contentDisplay="BOTTOM" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#GerarRelatorioSinteticoEvent" prefHeight="31.0" prefWidth="238.0" text="Gerar Relatório">
                      <font>
                         <Font size="15.0" />
                      </font>
